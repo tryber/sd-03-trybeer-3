@@ -15,8 +15,12 @@ const singinEmail = rescue(async (req, res, next) => {
     algorithm: 'HS256',
   };
   const token = jwt.sign({ data: user }, secret, jwtConfig);
-  const userWithToken = {...user, token}
-  await localStorage.setItem('user', JSON.stringify(userWithToken));
+  const userWithToken = {...user, token};
+  var LocalStorage = require('node-localstorage').LocalStorage;
+  var localStorage = new LocalStorage('./scratch');
+  console.log(userWithToken)
+  localStorage.setItem('user', 'JSON.stringify(userWithToken)');
+  console.log('passando', localStorage.getItem('user'))
   res.status(200).json(userWithToken);
 });
 
