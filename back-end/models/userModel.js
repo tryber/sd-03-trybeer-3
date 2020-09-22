@@ -16,7 +16,9 @@ const singinEmail = async (email) =>
     .execute())
     .then((results) => results.fetchOne())
     .then(([id, name, email, password, role] = []) => (
-      {id, name, email, password, role}
+      id
+        ? {id, name, email, password, role}
+        : null
     ));
 
 module.exports = {
