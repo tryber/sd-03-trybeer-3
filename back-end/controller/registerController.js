@@ -14,16 +14,14 @@ const singupUser = rescue(async (req, res, next) => {
     return next(newUser);
   }
 
-  const { id, password: usersecret, ...user } = newUser;
-
   const jwtConfig = {
     expiresIn: '20m',
     algorithm: 'HS256',
   };
 
-  const token = jwt.sign({ data: user }, secret, jwtConfig);
+  const token = jwt.sign({ data: newUser }, secret, jwtConfig);
 
-  const userWithToken = { ...user, token };
+  const userWithToken = { ...newUser, token };
 
   res.status(200).json(userWithToken);
 });

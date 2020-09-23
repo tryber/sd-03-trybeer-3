@@ -9,8 +9,9 @@ const singupUser = async (name, email, password, role) => {
 
   await usersModel.singupUser(name, email, password, role);
   const findUser = await usersModel.singinEmail(email);
+  const { id, password: ussersecret, ...userWithoutPassword } = findUser;
 
-  return findUser;
+  return userWithoutPassword;
 };
 
 module.exports = {
