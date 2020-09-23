@@ -54,13 +54,13 @@ const enterButton = (clickToEnter, isDisabled) => (
   </div>
 );
 
-const registerButton = () => (
+const registerButton = (history) => (
   <div>
     <button
       type="button"
       className="no-account-btn"
       data-testid="no-account-btn"
-      onClick={() => useHistory().push('/register')}
+      onClick={() => history.push('/register')}
     >
       Ainda nao tenho conta
     </button>
@@ -95,7 +95,7 @@ function Login() {
       {emailInput(userEmail, setUserEMail)}
       {passwordInput(userPassword, setUserPassword)}
       {enterButton(clickToEnter, isDisabled)}
-      {registerButton()}
+      {registerButton(history)}
     </div>
   );
 }

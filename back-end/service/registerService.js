@@ -7,9 +7,10 @@ const singupUser = async (name, email, password, role) => {
     return { error: true, status: 401, message: 'Email already registered!' };
   }
 
-  const user = await usersModel.singupUser(name, email, password, role);
+  await usersModel.singupUser(name, email, password, role);
+  const findUser = await usersModel.singinEmail(email);
 
-  return user;
+  return findUser;
 };
 
 module.exports = {

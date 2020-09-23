@@ -16,7 +16,12 @@ export const foo = async (email, password) => {
 export { foo as getLoginUser };
 
 export const register = async (name, email, password, role) => {
-  const data = await axios.post('http://localhost:3001/register', { name, email, password, role })
+  const data = await axios.post('http://localhost:3001/register', {
+    name,
+    email,
+    password,
+    role
+  })
     .then((response) => {
       localStorage.setItem('user', JSON.stringify(response));
       return response;

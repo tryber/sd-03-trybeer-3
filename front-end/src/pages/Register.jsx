@@ -6,7 +6,7 @@ const nameInput = (name, setName) => {
   return (
     <div>
       <label htmlFor="name">
-        Email
+        Nome
         <input
             type="text"
             data-testid="signup-name"
@@ -69,7 +69,7 @@ const roleInput = (role, setRole) => {
           id="role"
           onChange={() => (role === 'client')
             ? setRole('administrator')
-            : setRole('administrator')}
+            : setRole('client')}
           className="signup-seller"
         />
         Quero vender
@@ -101,6 +101,7 @@ function Register() {
 
   const clickToEnter = async () => {
     const newUser = await postNewUser(name, email, password, role);
+
     if (newUser.error) {
       return alert(newUser.err);
     }
@@ -112,7 +113,7 @@ function Register() {
 
   const isDisabled = () => {
     const emailTest = /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i;
-    if (name.length >11 && userPassword.length > 5 && userEmail.match(emailTest)) return false;
+    if (name.length >11 && password.length > 5 && email.match(emailTest)) return false;
     return true;
   };
 

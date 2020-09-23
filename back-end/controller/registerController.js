@@ -14,7 +14,7 @@ const singupUser = rescue(async (req, res, next) => {
     return next(newUser);
   }
 
-  const { password: usersecret, ...user } = newUser;
+  const { id, password: usersecret, ...user } = newUser;
 
   const jwtConfig = {
     expiresIn: '20m',
