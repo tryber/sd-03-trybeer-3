@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { trybeerContext } from '../context';
-import '../styles/Login.css';
+import { getLoginUser } from "../services/trybeerUserAPI";
 
 const emailInput = (userEmail, setUserEMail) => {
   return (
@@ -41,14 +40,14 @@ const passwordInput = (userPassword, setUserPassword) => {
   );
 };
 
-const enterButton = (userInfo, clickToEnter, isDisabled) => (
+const enterButton = (clickToEnter, isDisabled) => (
   <div>
     <button
       type="button"
       className="signin-btn"
       data-testid="signin-btn"
-      onClick={() => clickToEnter(userInfo)}
-      disabled={isDisabled(userInfo)}
+      onClick={() => clickToEnter()}
+      disabled={isDisabled()}
     >
       Entrar
     </button>
@@ -69,26 +68,24 @@ const registerButton = () => (
 );
 
 function Login() {
-  const { logedUser, testLogin } = useContext(trybeerContext);
   const [userEmail, setUserEMail] = useState('');
   const [userPassword, setUserPassword] = useState('');
-
-
+  const history = useHistory();
 
   const clickToEnter = async () => {
-    await testLogin(userEmail, userPassword)
-    if (logedUser.message) {
-      return alert(logedUser.message);
+    const logedUser = await getLoginUser(userEmail, userPassword);
+    if (logedUser.error) {
+      return alert(logedUser.err);
     }
-    if (logedUser.role === 'administrator') {
-      useHistory().push('/admin/profile')
+    if (logedUser.data.role === 'administrator') {
+      return history.push('/admin/profile')
     }
-    useHistory().push('/products');
+    history.push('/products');
   };
 
   const isDisabled = () => {
     const emailTest = /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i;
-    if (userPassword.length < 6 && userEmail.match(emailTest)) return false;
+    if (userPassword.length > 5 && userEmail.match(emailTest)) return false;
     return true;
   };
 
@@ -97,7 +94,7 @@ function Login() {
       <h1>Login</h1>
       {emailInput(userEmail, setUserEMail)}
       {passwordInput(userPassword, setUserPassword)}
-      {enterButton(userInfo, clickToEnter, isDisabled)}
+      {enterButton(clickToEnter, isDisabled)}
       {registerButton()}
     </div>
   );

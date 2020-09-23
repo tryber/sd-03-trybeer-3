@@ -14,12 +14,12 @@ const config = {
 module.exports = () => (schema
   ? Promise.resolve(schema)
   : mysql.getSession(config)
-      .then(async (session) => {
-        schema = await session.getSchema('Trybeer');
-        return schema;
-      })
-      .catch((err) => {
-        console.error(err);
-        process.exit(1);
-      })
-)
+    .then(async (session) => {
+      schema = await session.getSchema('Trybeer');
+      return schema;
+    })
+    .catch((err) => {
+      console.error(err);
+      process.exit(1);
+    })
+);
