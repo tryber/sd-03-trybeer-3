@@ -29,8 +29,22 @@ const singupUser = async (name, email, password, role) => connect()
     .values(email, password, name, role)
     .execute());
 
+const changeName = async (name, email) => (
+  connect()
+    .then((db) =>
+      db
+        .getTable('users')
+        .update()
+        .set('name', name)
+        .set('ingredients', ingredients)
+        .set('instructions', instructions)
+        .where('email = :email')
+        .bind('email', email)
+        .execute()));
+
 module.exports = {
   getAllUsers,
   singinEmail,
   singupUser,
+  changeName,
 };
