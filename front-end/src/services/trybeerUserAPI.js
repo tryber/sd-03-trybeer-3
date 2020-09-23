@@ -34,3 +34,22 @@ export const register = async (name, email, password, role) => {
 };
 
 export { register as postNewUser };
+
+export const changeName = async (name, email, token) => {
+  const data = await axios.put('http://localhost:3001/profile', {
+    name,
+    email,
+    token,
+  })
+    .then((response) => {
+      localStorage.setItem('user', JSON.stringify(response));
+      return response;
+    })
+    .catch((err) => {
+      const errorMessage = { error: true, err };
+      return errorMessage;
+    });
+  return data;
+};
+
+export { changeName as putNameUser };
