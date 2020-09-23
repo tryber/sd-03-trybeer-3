@@ -1,8 +1,9 @@
 import React from 'react';
 
-function TopMenu() {
+function TopMenu(props) {
     return (
-        <div> 
+        <div data-testid="top-title">
+            <img data-testid="top-hamburguer" /> 
             <h1>TopMenu</h1>
         </div>
     )
