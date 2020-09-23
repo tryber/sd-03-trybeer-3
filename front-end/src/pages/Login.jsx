@@ -25,7 +25,7 @@ const passwordInput = (userPassword, setUserPassword) => {
   return (
     <div>
       <label htmlFor="password">
-        Senha
+        Password
         <input
           type="password"
           data-testid="password-input"
@@ -49,7 +49,7 @@ const enterButton = (clickToEnter, isDisabled) => (
       onClick={() => clickToEnter()}
       disabled={isDisabled()}
     >
-      Entrar
+      ENTRAR
     </button>
   </div>
 );
@@ -62,7 +62,7 @@ const registerButton = (history) => (
       data-testid="no-account-btn"
       onClick={() => history.push('/register')}
     >
-      Ainda nao tenho conta
+      Ainda não tenho conta
     </button>
   </div>
 );
@@ -78,7 +78,7 @@ function Login() {
       return alert(logedUser.err);
     }
     if (logedUser.data.role === 'administrator') {
-      return history.push('/admin/profile')
+      return history.push('/admin/orders')
     }
     history.push('/products');
   };
