@@ -97,13 +97,14 @@ function Register() {
   const [email, setEMail] = useState('');
   const [password, setPassword] = useState('');
   const [role, setRole] = useState('client');
+  const [alertEmailExist, setAlertEmailExist] = useState(false);
   const history = useHistory();
 
   const clickToEnter = async () => {
     const newUser = await postNewUser(name, email, password, role);
 
     if (newUser.error) {
-      return alert('E-mail already in database.');
+      return setAlertEmailExist(true);
     }
     if (role === 'administrator') {
       return history.push('/admin/orders')
@@ -113,13 +114,15 @@ function Register() {
 
   const isDisabled = () => {
     const emailTest = /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i;
-    if (name.length >11 && password.length > 5 && email.match(emailTest)) return false;
+    console.log(name.length > 11 && password.length > 5 && email.match(emailTest) && !/^[a-zA-Z]+$/.test(name))
+    if (name.length > 11 && password.length > 5 && email.match(emailTest) && !/^[a-zA-Z]+$/.test(name)) return false;
     return true;
   };
 
   return (
     <div>
       <h1>Registro</h1>
+      {alertEmailExist && <p>E-mail already in database.</p>}
       {nameInput(name, setName)}
       {emailInput(email, setEMail)}
       {passwordInput(password, setPassword)}
