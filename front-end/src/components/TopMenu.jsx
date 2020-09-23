@@ -2,7 +2,7 @@ import React from 'react';
 
 function TopMenu() {
     return (
-        <div>
+        <div> 
             <h1>TopMenu</h1>
         </div>
     )
