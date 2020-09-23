@@ -3,13 +3,13 @@ const model = require('../models/userModel');
 
 const secret = 'xablaublaxablau';
 
-module.exports = async (req, res, next) => {
+const authJWT = async (req, res, next) => {
   const { token } = req.body;
 
   if (!token) {
     return res.status(401).json({ message: 'missing auth token' });
   }
-
+  
   try {
     const decoded = jwt.verify(token, secret);
 
@@ -27,3 +27,7 @@ module.exports = async (req, res, next) => {
     return res.status(401).json({ message: 'jwt malformed' });
   }
 };
+
+module.exports = {
+  authJWT,
+}

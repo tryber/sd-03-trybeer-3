@@ -1,6 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { putNameUser } from "../services/trybeerUserAPI";
 
+const dealWithChange = (setName, setChange, value) => {
+  setName(value);
+  setChange(false);
+};
+
 const nameInput = (name, setName, setChange) => {
   return (
     <div>
@@ -10,7 +15,7 @@ const nameInput = (name, setName, setChange) => {
             type="text"
             data-testid="profile-name-input"
             id="name"
-            onChange={(event) => { setChange(true) && setName(event.target.value)}}
+            onChange={(event) => dealWithChange(setName, setChange, event.target.value) }
             value={name}
             placeholder="nome"
             className="profile-name-input"
@@ -57,13 +62,14 @@ function Register() {
   const [email, setEMail] = useState('');
   const [token, setToken] = useState('');
   const [message, setMessage] = useState('');
-  const [change, setChange] = useState(false);
+  const [change, setChange] = useState(true);
 
-  useEffect(() => async () => {
-    const actualUser = await JSON.parse(localStorage.getItem('user'));
-    setName(actualUser.name);
-    setEMail(actualUser.email);
-    setToken(actualUser.token);
+  useEffect(() => {
+    const actualUser = JSON.parse(localStorage.getItem('user'));
+    if(!actualUser) return window.location.assign('http://localhost:3000/login');
+    setName(actualUser.data.name);
+    setEMail(actualUser.data.email);
+    setToken(actualUser.data.token);
   }, []);
 
   const clickToSave = async () => {
@@ -74,7 +80,7 @@ function Register() {
   };
 
   const isDisabled = () => {
-    if (name.length >11 && change) {
+    if (name !== '' && name.length > 11 && !change) {
       return false;
     }
     return true;
