@@ -20,7 +20,7 @@ export const register = async (name, email, password, role) => {
     name,
     email,
     password,
-    role
+    role,
   })
     .then((response) => {
       localStorage.setItem('user', JSON.stringify(response));

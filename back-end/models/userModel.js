@@ -28,7 +28,6 @@ const singupUser = async (name, email, password, role) => connect()
     .insert(['email', 'password', 'name', 'role'])
     .values(email, password, name, role)
     .execute());
-  
 
 module.exports = {
   getAllUsers,
