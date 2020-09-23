@@ -23,13 +23,11 @@ const singinEmail = async (userEmail) => connect()
   ));
 
 const singupUser = async (name, email, password, role) => connect()
-  .then((db) =>
-    db
-      .getTable('users')
-      .insert(['email', 'password', 'name', 'role'])
-      .values(email, password, name, role)
-      .execute(),
-);
+  .then((db) => db
+    .getTable('users')
+    .insert(['email', 'password', 'name', 'role'])
+    .values(email, password, name, role)
+    .execute());
 
 module.exports = {
   getAllUsers,

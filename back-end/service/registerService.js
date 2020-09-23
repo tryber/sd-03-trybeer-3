@@ -6,7 +6,7 @@ const singupUser = async (name, email, password, role) => {
   if (allUsers.some((elem) => elem.email === email)) {
     return { error: true, status: 401, message: 'Email already registered!' };
   }
-  
+
   const user = await usersModel.singupUser(name, email, password, role);
 
   return user;
