@@ -9,7 +9,7 @@ const authJWT = async (req, res, next) => {
   if (!token) {
     return res.status(401).json({ message: 'missing auth token' });
   }
-  
+
   try {
     const decoded = jwt.verify(token, secret);
 
@@ -30,4 +30,4 @@ const authJWT = async (req, res, next) => {
 
 module.exports = {
   authJWT,
-}
+};
