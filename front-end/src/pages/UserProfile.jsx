@@ -10,7 +10,10 @@ const nameInput = (name, setName, setChange) => {
             type="text"
             data-testid="profile-name-input"
             id="name"
-            onChange={(event) => { setChange(true) && setName(event.target.value)}}
+            onChange={(event) => { 
+              setChange(true);
+              setName(event.target.value);
+            }}
             value={name}
             placeholder="nome"
             className="profile-name-input"
@@ -57,7 +60,7 @@ function Register() {
   const [email, setEMail] = useState('');
   const [token, setToken] = useState('');
   const [message, setMessage] = useState('');
-  const [change, setChange] = useState(false);
+  const [change, setChange] = useState(true);
 
   useEffect(() => async () => {
     const actualUser = await JSON.parse(localStorage.getItem('user'));
@@ -74,7 +77,7 @@ function Register() {
   };
 
   const isDisabled = () => {
-    if (name.length >11 && change) {
+    if (name.length >11 && !change) {
       return false;
     }
     return true;
