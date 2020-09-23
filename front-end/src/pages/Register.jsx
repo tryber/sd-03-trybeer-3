@@ -114,7 +114,6 @@ function Register() {
 
   const isDisabled = () => {
     const emailTest = /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i;
-    console.log(name.length > 11 && password.length > 5 && email.match(emailTest) && !/^[a-zA-Z]+$/.test(name))
     if (name.length > 11 && password.length > 5 && email.match(emailTest) && !/^[a-zA-Z]+$/.test(name)) return false;
     return true;
   };
