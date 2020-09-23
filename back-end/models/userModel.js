@@ -31,16 +31,13 @@ const singupUser = async (name, email, password, role) => connect()
 
 const changeName = async (name, email) => (
   connect()
-    .then((db) =>
-      db
-        .getTable('users')
-        .update()
-        .set('name', name)
-        .set('ingredients', ingredients)
-        .set('instructions', instructions)
-        .where('email = :email')
-        .bind('email', email)
-        .execute()));
+    .then((db) => db
+      .getTable('users')
+      .update()
+      .set('name', name)
+      .where('email = :email')
+      .bind('email', email)
+      .execute()));
 
 module.exports = {
   getAllUsers,
