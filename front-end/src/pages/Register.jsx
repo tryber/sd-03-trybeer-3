@@ -106,7 +106,7 @@ function Register() {
       return alert(newUser.err);
     }
     if (role === 'administrator') {
-      return history.push('/admin/profile')
+      return history.push('/admin/orders')
     }
     history.push('/products');
   };
