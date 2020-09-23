@@ -49,7 +49,7 @@ const enterButton = (clickToEnter, isDisabled) => (
       onClick={() => clickToEnter()}
       disabled={isDisabled()}
     >
-      Entrar
+      ENTRAR
     </button>
   </div>
 );

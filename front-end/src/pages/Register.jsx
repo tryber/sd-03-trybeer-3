@@ -44,7 +44,7 @@ const passwordInput = (password, setPassword) => {
   return (
     <div>
       <label htmlFor="password">
-        Senha
+        Password
         <input
           type="password"
           data-testid="signup-password"
@@ -72,7 +72,7 @@ const roleInput = (role, setRole) => {
             : setRole('client')}
           className="signup-seller"
         />
-        Quero vender
+        Quero Vender
       </label>
     </div>
   );
@@ -103,7 +103,7 @@ function Register() {
     const newUser = await postNewUser(name, email, password, role);
 
     if (newUser.error) {
-      return alert(newUser.err);
+      return alert('E-mail already in database.');
     }
     if (role === 'administrator') {
       return history.push('/admin/orders')
