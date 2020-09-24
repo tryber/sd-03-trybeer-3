@@ -56,7 +56,7 @@ export { changeName as putNameUser };
 
 export const callProducts = async () => {
   const data = await axios.get('http://localhost:3001/products')
-  .then((response) => response);
+    .then((response) => response);
   return data;
 };
 
