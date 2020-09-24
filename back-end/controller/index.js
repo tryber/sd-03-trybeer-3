@@ -2,10 +2,12 @@ const loginController = require('./loginController');
 const registerController = require('./registerController');
 const profileController = require('./profileController');
 const productsController = require('./productsController');
+const salesController = require('./salesController');
 
 module.exports = {
   loginController,
   registerController,
   profileController,
   productsController,
+  salesController,
 };

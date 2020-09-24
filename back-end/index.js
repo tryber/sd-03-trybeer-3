@@ -12,6 +12,7 @@ app.use('/login', routes.loginRoute);
 app.use('/register', routes.registerRoute);
 app.use('/profile', routes.profileRoute);
 app.use('/products', routes.productsRoute);
+app.use('/sales', routes.salesRoute);
 app.use('/images', express.static('images'));
 
 app.use((error, _req, res, _next) => {

@@ -61,3 +61,17 @@ export const callProducts = async () => {
 };
 
 export { callProducts as allProducts };
+
+export const registerSale = async (email, total, adress, number, date) => {
+  const data = await axios.post('http://localhost:3001/sales', {
+    email,
+    total,
+    adress,
+    number,
+    date,
+  })
+    .then((response) => response);
+  return data;
+};
+
+export { registerSale as createSale };

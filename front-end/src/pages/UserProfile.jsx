@@ -23,7 +23,7 @@ const nameInput = (name, setName, setChange) => {
       </label>
     </div>
   );
-};  
+};
 
 const emailInput = (email) => {
   return (
