@@ -3,7 +3,7 @@ const model = require('../models/userModel');
 
 const secret = 'xablaublaxablau';
 
-module.exports = async (req, res, next) => {
+const authJWT = async (req, res, next) => {
   const { token } = req.body;
 
   if (!token) {
@@ -26,4 +26,8 @@ module.exports = async (req, res, next) => {
   } catch (err) {
     return res.status(401).json({ message: 'jwt malformed' });
   }
+};
+
+module.exports = {
+  authJWT,
 };

@@ -1,6 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { putNameUser } from "../services/trybeerUserAPI";
 
+const dealWithChange = (setName, setChange, value) => {
+  setName(value);
+  setChange(false);
+};
+
 const nameInput = (name, setName, setChange) => {
   return (
     <div>
@@ -10,10 +15,7 @@ const nameInput = (name, setName, setChange) => {
             type="text"
             data-testid="profile-name-input"
             id="name"
-            onChange={(event) => { 
-              setChange(true);
-              setName(event.target.value);
-            }}
+            onChange={(event) => dealWithChange(setName, setChange, event.target.value)}
             value={name}
             placeholder="nome"
             className="profile-name-input"
