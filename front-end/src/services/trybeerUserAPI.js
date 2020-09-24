@@ -54,16 +54,7 @@ export const changeName = async (name, email, token) => {
 
 export { changeName as putNameUser };
 
-export const callProducts = async () => {
-  const data = await axios.get('http://localhost:3001/products', {
-    name,
-    email,
-    token,
-  })
-    .then((response) => {
-      return response;
-    })
-  return data;
-};
+export const callProducts = async () => axios.get('http://localhost:3001/products')
+  .then((response) => response);
 
-export { changeName as putNameUser };
+export { callProducts as allProducts };

@@ -7,5 +7,5 @@ const allProducts = async () => {
 };
 
 module.exports = {
-    allProducts,
+  allProducts,
 };
