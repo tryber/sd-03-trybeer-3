@@ -124,7 +124,7 @@ function UserCheckout() {
     const actualPurchase = JSON.parse(localStorage.getItem('inProcessPurchase'));
     setPurchase(actualPurchase);
     const actualTotal = actualPurchase.reduce((acc, elem) => {
-      return (parseInt(acc) + parseFloat(elem.price) * elem.amount).toFixed(2);
+      return (parseFloat(acc) + parseFloat(elem.price) * elem.amount).toFixed(2);
     }, 0);
     setTotal(actualTotal);
   }, []);
@@ -134,9 +134,11 @@ function UserCheckout() {
     const day = String(date.getDate()).padStart(2, '0');
     const month = String(date.getMonth() + 1).padStart(2, '0');
     const year = date.getFullYear();
-    date = `${day} / ${month} / ${year}`;
+    date = `${year}-${month}-${day}`;
     const registerResponse = await createSale(email, total, adress, number, date);
     setMessage(registerResponse.data.message);
+    localStorage.setItem('inProcessPurchase', JSON.stringify([]));
+    localStorage.setItem('total', JSON.stringify(0));
     setTimeout(() => {
       setMessage('');
       history.push('/products');
@@ -144,7 +146,7 @@ function UserCheckout() {
   };
 
   const isDisabled = () => {
-    if (total !== 0 && adress && number) {
+    if (total !== 0 && adress !== '' && number !== '') {
       return false;
     }
     return true;
@@ -160,7 +162,7 @@ function UserCheckout() {
       </h4>
       {adressInput(adress, setAdress)}
       {numberInput(number, setNumber)}
-      {checkoutButton(total , clickToProducts, isDisabled)}
+      {checkoutButton(clickToProducts, isDisabled)}
     </div>
   );
 }

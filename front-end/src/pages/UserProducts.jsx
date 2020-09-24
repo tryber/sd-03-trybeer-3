@@ -68,7 +68,7 @@ const renderButtons = (id, e, purchase, setPurchase, total, setTotal) => {
 const productsCards = (products, purchase, setPurchase, total, setTotal) => (
   <div className="products-container-card">
     {products.map((e) => (
-      <div>
+      <div key={e.id - 1}>
         <div className="products-card">
           <img data-testid={`${(e.id -1)}-product-img`} src={e.image} width="100px" alt="" />
           <p data-testid={`${(e.id -1)}-product-name`}>{e.name}</p>
