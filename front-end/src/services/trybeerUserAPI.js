@@ -53,3 +53,11 @@ export const changeName = async (name, email, token) => {
 };
 
 export { changeName as putNameUser };
+
+export const callProducts = async () => {
+  const data = await axios.get('http://localhost:3001/products')
+  .then((response) => response);
+  return data;
+};
+
+export { callProducts as allProducts };
