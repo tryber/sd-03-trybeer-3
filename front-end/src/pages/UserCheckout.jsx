@@ -48,9 +48,10 @@ const excludeProduct = async (
   localStorage.setItem('inProcessPurchase', JSON.stringify(purchaseWithoutItem));
   if ( purchaseWithoutItem.length === 0) {
     setMessage('Não há produtos no carrinho');
+    return setTotal('0,00');
   }
-  const newtotal = await (parseFloat(total) - parseFloat(totalProduct)).toFixed(2);
-  newtotal === 0 ? setTotal('0,00') : setTotal(newtotal);
+  const newtotal = parseFloat(purchaseWithoutItem.map(el=>el.price)).toFixed(2).replace('.', ',');
+  setTotal(newtotal);
 };
 
 const renderButtons = (
