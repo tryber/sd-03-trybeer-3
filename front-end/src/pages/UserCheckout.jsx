@@ -41,28 +41,29 @@ const numberInput = (number, setNumber) => {
 };
 
 const excludeProduct = async (
-  product, purchase, setPurchase, total, setTotal, totalProduct, setMessage,
+  product, purchase, setPurchase, setTotal, setMessage,
 ) => {
   const purchaseWithoutItem = await purchase.filter((elem) => elem.id !== product.id);
   setPurchase(purchaseWithoutItem);
   localStorage.setItem('inProcessPurchase', JSON.stringify(purchaseWithoutItem));
   if ( purchaseWithoutItem.length === 0) {
     setMessage('Não há produtos no carrinho');
-    return setTotal('0,00');
   }
-  const newtotal = parseFloat(purchaseWithoutItem.map(el=>el.price)).toFixed(2).replace('.', ',');
-  setTotal(newtotal);
+  const newtotal = purchaseWithoutItem.reduce((acc, elem) => {
+      return (parseFloat(acc) + (parseFloat(elem.price) * parseFloat(elem.amount)));
+    }, 0);
+  setTotal(parseFloat(newtotal).toFixed(2).replace('.', ','));
 };
 
 const renderButtons = (
-  index, id, purchase, setPurchase, total, setTotal, totalProduct, setMessage,
+  index, id, purchase, setPurchase, setTotal, setMessage,
 ) => {
   const product = purchase.filter((e) => e.id === id)[0];
   return (
     <div className="removal-button-container">
       <button
         onClick={() => excludeProduct(
-          product, purchase, setPurchase, total, setTotal, totalProduct, setMessage,
+          product, purchase, setPurchase, setTotal, setMessage,
         )}
         type="button"
         data-testid={`${index}-removal-button`}
@@ -74,7 +75,7 @@ const renderButtons = (
   );
 }
 
-const productsCards = (purchase, setPurchase, total, setTotal, setMessage) => (
+const productsCards = (purchase, setPurchase, setTotal, setMessage) => (
   <div className="checkout-container-card">
     {purchase.map((e, index) => {
       const totalProduct = (parseFloat(e.price) * parseInt(e.amount)).toFixed(2).replace('.', ',');
@@ -89,7 +90,7 @@ const productsCards = (purchase, setPurchase, total, setTotal, setMessage) => (
             </p>
           </div>
           {renderButtons(
-            index, e.id, purchase, setPurchase, total, setTotal, totalProduct, setMessage,
+            index, e.id, purchase, setPurchase, setTotal, setMessage,
           )}
         </div>
       );
@@ -169,7 +170,7 @@ function UserCheckout() {
     <div>
       <h1 data-testid="top-title">Finalizar Pedido</h1>
       <h3>{message}</h3>
-      {productsCards(purchase, setPurchase, total, setTotal, setMessage)}
+      {productsCards(purchase, setPurchase, setTotal, setMessage)}
       <h4 data-testid="order-total-value" className="order-total-value">
         Total: R$ {total === 0 ? '0,00' : total}
       </h4>
