@@ -6,7 +6,7 @@ const productsCards = (purchase, clickToCart) => (
   <div className="order-container-card">
     {purchase.map((e, index) => {
       const month = new Date(e.date).getMonth()+1;
-      const day = new Date(e.date).getDate() + 1;
+      const day = new Date(e.date).getDate();
       return (
         <div
           key={e.id}
