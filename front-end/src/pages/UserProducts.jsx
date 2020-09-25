@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { allProducts } from "../services/trybeerUserAPI";
+import TopMenu from '../components/TopMenu';
 
 const decrement = async (product, purchase, setPurchase, total, setTotal) => {
   const { id, name, image, price, amount } = product;
@@ -128,7 +129,7 @@ function UserProducts() {
 
   return (
     <div>
-      <h1 data-testid="top-title">Finalizar Pedido</h1>
+      {TopMenu('TryBeer')}
       {productsCards(products, purchase, setPurchase, total, setTotal)}
       {cartButton(total , clickToCart, isDisabled)}
     </div>
