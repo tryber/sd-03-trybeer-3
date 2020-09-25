@@ -21,12 +21,12 @@ const productsCards = (purchase) => (
   </div>
 );
 
-const deliveredButton = (clickToDeliver) => (
+const deliveredButton = (clickToDeliver, id) => (
   <div>
     <button
       type="button"
       className="checkout-finish-btn"
-      data-testid="checkout-finish-btn"
+      data-testid={`${parseFloat(id)-1}-order-number`}
       onClick={() => clickToDeliver()}
     >
       Marcar como Entregue
@@ -82,13 +82,13 @@ function AdminOrdersDetails() {
       <div>
         <p data-testid="order-number" className="order-number">Pedido {id}</p>
         <p> - </p>
-        <p data-testid="order-number" className="order-number">{status}</p>
+        <p data-testid="order-status" className="order-status">{status}</p>
       </div>
       {productsCards(purchase)}
       <h4 data-testid="order-total-value" className="order-total-value">
         Total: R$ {total}
       </h4>
-      {(status === 'Pendente') ? deliveredButton(clickToDeliver) : null}
+      {(status === 'Pendente') ? deliveredButton(clickToDeliver, id) : null}
     </div>
   );
 }

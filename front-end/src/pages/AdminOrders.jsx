@@ -33,7 +33,6 @@ const productsCards = (purchase, clickToOrdersDetail) => (
 
 const itensList = async (setPurchase) => {
   const listSales = await allSales();
-  console.log(listSales)
   setPurchase(listSales.data);
 };
 
