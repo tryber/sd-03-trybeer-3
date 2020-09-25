@@ -13,7 +13,7 @@ const nameInput = (name) => {
 const emailInput = (email) => {
   return (
     <div>
-      <h4>Email: </h4><h4 data-testid="profile-name">{email}</h4>
+      <h4>Email: </h4><h4 data-testid="profile-email">{email}</h4>
     </div>
   );
 };
