@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 import { allProducts } from "../services/trybeerUserAPI";
 import TopMenu from '../components/TopMenu';
 
-const decrement = async (product, purchase, setPurchase, total, setTotal) => {
+const decrement = async (product, purchase, setPurchase, setTotal) => {
   const { id, name, image, price, amount } = product;
   const purchaseWithoutItem = await purchase.filter((elem) => elem.id !== product.id) || [];
   if (!amount) {
@@ -15,7 +15,7 @@ const decrement = async (product, purchase, setPurchase, total, setTotal) => {
     const newtotal = purchaseWithoutItem.reduce((acc, elem) => {
       return (parseFloat(acc) + parseFloat(elem.price) * elem.amount).toFixed(2).replace('.', ',');
     }, 0);
-    return setTotal(newtotal);
+    return newtotal === 0 ? setTotal('0,00') : setTotal(newtotal);
   }
   const newAmount = (parseInt(amount) - 1);
   const newItem = { id, name, image, price, amount: newAmount };
@@ -28,7 +28,7 @@ const decrement = async (product, purchase, setPurchase, total, setTotal) => {
   return setTotal(newtotal);
 };
 
-const increment = async (product, purchase, setPurchase, total, setTotal) => {
+const increment = async (product, purchase, setPurchase, setTotal) => {
   const { id, name, image, price, amount } = product;
   const purchaseWithoutItem = await purchase.filter((elem) => elem.id !== product.id) || [];
   const newAmount = (amount) ? (parseInt(amount) + 1) : 1;
@@ -42,12 +42,12 @@ const increment = async (product, purchase, setPurchase, total, setTotal) => {
   return setTotal(newtotal);
 };
 
-const renderButtons = (id, e, purchase, setPurchase, total, setTotal) => {
+const renderButtons = (id, e, purchase, setPurchase, setTotal) => {
   const product = purchase.filter((e) => e.id === id)[0] || e;
   return (
     <div className="card-buttons">
       <button
-        onClick={() => decrement(product, purchase, setPurchase, total, setTotal)}
+        onClick={() => decrement(product, purchase, setPurchase, setTotal)}
         type="button"
         data-testid={`${(id -1)}-product-minus`}
         className="product-minus"
@@ -59,7 +59,7 @@ const renderButtons = (id, e, purchase, setPurchase, total, setTotal) => {
         className="product-qtd"
       >{(product.amount) ? product.amount : 0}</p>
       <button
-        onClick={() => increment(product, purchase, setPurchase, total, setTotal)}
+        onClick={() => increment(product, purchase, setPurchase, setTotal)}
         type="button"
         data-testid={`${(id -1)}-product-plus`}
         className="product-plus"
@@ -119,7 +119,7 @@ function UserProducts() {
       return (parseFloat(acc) + parseFloat(elem.price) * elem.amount).toFixed(2).replace('.', ',');
     }, 0);
     setPurchase(actualPurchase);
-    setTotal(actualTotal);
+    actualTotal === 0 ? setTotal('0,00') : setTotal(actualTotal);
   }, []);
 
   const clickToCart = async () => {
@@ -136,7 +136,7 @@ function UserProducts() {
   return (
     <div>
       {TopMenu('TryBeer')}
-      {productsCards(products, purchase, setPurchase, total, setTotal)}
+      {productsCards(products, purchase, setPurchase, setTotal)}
       {cartButton(total , clickToCart, isDisabled)}
     </div>
   );

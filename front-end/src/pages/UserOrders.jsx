@@ -22,9 +22,11 @@ const productsCards = (purchase, clickToCart) => (
   </div>
 );
 
-const itensList = async (setSales) => {
+const itensList = async (setSales, actualUser, setPurchase, sales) => {
   const listSales = await allSales();
   setSales(listSales.data);
+  const actualPurchase = sales.filter((elem) => elem.userId === actualUser.data.id);
+  setPurchase(actualPurchase);
 };
 
 function UserOrders() {
@@ -35,9 +37,7 @@ function UserOrders() {
   useEffect(() => {
     const actualUser = JSON.parse(localStorage.getItem('user'));
     if(!actualUser) return window.location.assign('http://localhost:3000/login');
-    itensList(setSales);
-    const actualPurchase = sales.filter((elem) => elem.userId === actualUser.data.id);
-    setPurchase(actualPurchase);
+    itensList(setSales, actualUser, setPurchase, sales);
   }, []);
 
   const clickToCart = async (id) => {
