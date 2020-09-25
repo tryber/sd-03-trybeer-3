@@ -1,14 +1,18 @@
 import React, { useState } from 'react';
 import SideMenu from './SideMenu';
+import cardapio from '../utils/images/cardapio.svg';
 
 function TopMenu(title) {
   const [sideMenuState, setSideMenuState] = useState(false);
   return (
     <div>
-      <button onClick={() => setSideMenuState(!sideMenuState)}>
-        <img data-testid="top-hamburguer" />
-        teste
-      </button>
+      <img
+        onClick={() => setSideMenuState(!sideMenuState)}
+        data-testid="top-hamburguer"
+        src={cardapio}
+        alt='side-menu'
+        height="42"
+      />
       <h1 data-testid="top-title">{title}</h1>
       {SideMenu(sideMenuState)}
     </div>
