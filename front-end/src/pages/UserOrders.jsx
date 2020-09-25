@@ -5,6 +5,9 @@ import { allSales } from "../services/trybeerUserAPI";
 const productsCards = (purchase, clickToCart) => (
   <div className="order-container-card">
     {purchase.map((e, index) => {
+      console.log(e.date.padStart(2, '0'), e)
+      //const day = e.date.split('-')[2];
+      //const month = e.date.split('-')[1];
       return (
         <div
           key={e.id}

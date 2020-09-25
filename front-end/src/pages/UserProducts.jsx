@@ -127,7 +127,7 @@ function UserProducts() {
   };
 
   const isDisabled = () => {
-    if (total !== 0) {
+    if (total !== '0,00') {
       return false;
     }
     return true;
