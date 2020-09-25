@@ -33,15 +33,27 @@ const finishSales = async (id, total, address, number, date, status = 'Pendente'
     .getTable('sales')
     .insert(['user_id', 'total_price', 'delivery_address', 'delivery_number', 'sale_date', 'status'])
     .values(id, total, address, number, date, status)
+    .execute());
+
+const registerProduct = async (saleId, productId, quantity) => connect()
+  .then((db) => db
+    .getTable('sales_products')
+    .insert(['sale_id', 'product_id', 'quantity'])
+    .values(saleId, productId, quantity)
+    .execute());
+
+const allSalesProduct = async () => connect()
+  .then((db) => db
+    .getTable('sales_products')
+    .select(['sale_id', 'product_id', 'quantity'])
     .execute())
-  .then(() => (
-    {
-      erro: false,
-      message: 'Compra realizada com sucesso!',
-    }
-  ));
+  .then((results) => results.fetchAll())
+  .then((results) => results.map(([saleId, productId, quantity]) => (
+    { saleId, productId, quantity })));
 
 module.exports = {
   allSales,
   finishSales,
+  registerProduct,
+  allSalesProduct,
 };

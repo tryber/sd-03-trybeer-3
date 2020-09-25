@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import { createSale } from "../services/trybeerUserAPI";
+import { createSale, saveSaleProducts } from "../services/trybeerUserAPI";
 
 const addressInput = (address, setAddress) => {
   return (
@@ -108,6 +108,16 @@ const checkoutButton = (clickToProducts, isDisabled) => (
   </div>
 );
 
+const saveIndividualProduct = async (elem, saleId) => {
+  await saveSaleProducts(saleId, elem.id, elem.amount)
+  return;
+};
+
+const savePurchase = async (saleId, purchase) => (
+  Promise.all(purchase.map((elem) => saveIndividualProduct(elem, saleId)))
+);
+
+
 function UserCheckout() {
   const [purchase, setPurchase] = useState([]);
   const [total, setTotal] = useState(0);
@@ -120,7 +130,7 @@ function UserCheckout() {
   useEffect(() => {
     const actualUser = JSON.parse(localStorage.getItem('user'));
     if(!actualUser) return window.location.assign('http://localhost:3000/login');
-    setEmail(actualUser.data.id);
+    setEmail(actualUser.data.email);
     const actualPurchase = JSON.parse(localStorage.getItem('inProcessPurchase'));
     setPurchase(actualPurchase);
     const actualTotal = actualPurchase.reduce((acc, elem) => {
@@ -137,8 +147,8 @@ function UserCheckout() {
     date = `${year}-${month}-${day}`;
     const registerResponse = await createSale(email, total, address, number, date);
     setMessage(registerResponse.data.message);
+    savePurchase(registerResponse.data.saleId, purchase)
     localStorage.setItem('inProcessPurchase', JSON.stringify([]));
-    localStorage.setItem('total', JSON.stringify(0));
     setTimeout(() => {
       setMessage('');
       history.push('/products');

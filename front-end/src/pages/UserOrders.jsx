@@ -10,7 +10,7 @@ const productsCards = (purchase, clickToCart) => (
       return (
         <div
           key={e.id}
-          onClick={() => clickToCart(e.id)}
+          onClick={() => clickToCart((index + 1))}
           data-testid={`${index}-order-card-container`}
         >
           <p data-testid={`${index}-order-number`}>Produto {(index + 1)}</p>
@@ -23,8 +23,8 @@ const productsCards = (purchase, clickToCart) => (
 );
 
 const itensList = async (setSales) => {
-  const listProducts = await allSales();
-  setSales(listProducts.data);
+  const listSales = await allSales();
+  setSales(listSales.data);
 };
 
 function UserOrders() {
@@ -36,7 +36,7 @@ function UserOrders() {
     const actualUser = JSON.parse(localStorage.getItem('user'));
     if(!actualUser) return window.location.assign('http://localhost:3000/login');
     itensList(setSales);
-    const actualPurchase = sales.data.filter((elem) => elem.userId === actualUser.data.id);
+    const actualPurchase = sales.filter((elem) => elem.userId === actualUser.data.id);
     setPurchase(actualPurchase);
   }, []);
 

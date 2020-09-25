@@ -83,3 +83,23 @@ export const callSales = async () => {
 };
 
 export { callSales as allSales };
+
+export const saveIndividualProduct = async (saleId, productId, quantity) => {
+  const data = await axios.post('http://localhost:3001/individualProduct', {
+    saleId,
+    productId,
+    quantity,
+  })
+    .then((response) => response);
+  return data;
+};
+
+export { saveIndividualProduct as saveSaleProducts };
+
+export const callSalesProducts = async () => {
+  const data = await axios.get('http://localhost:3001/individualProduct')
+    .then((response) => response);
+  return data;
+};
+
+export { callSalesProducts as allSalesProducts };
