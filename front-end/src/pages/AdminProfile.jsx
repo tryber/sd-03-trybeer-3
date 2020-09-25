@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import TopMenu from '../components/TopMenu';
 import SideMenuAdmin from '../components/SideMenuAdmin';
 
 const nameInput = (name) => {
