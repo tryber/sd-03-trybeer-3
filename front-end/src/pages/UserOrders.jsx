@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { allSales } from "../services/trybeerUserAPI";
+import TopMenu from '../components/TopMenu';
 
 const productsCards = (purchase, clickToCart) => (
   <div className="order-container-card">
@@ -46,7 +47,7 @@ function UserOrders() {
 
   return (
     <div>
-      <h1 data-testid="top-title">Meus Pedidos</h1>
+      {TopMenu('Meus Pedidos')}
       {productsCards(purchase, clickToCart)}
     </div>
   );

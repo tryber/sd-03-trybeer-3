@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { putNameUser } from "../services/trybeerUserAPI";
+import TopMenu from '../components/TopMenu';
 
 const dealWithChange = (setName, setChange, value) => {
   setName(value);
@@ -89,7 +90,7 @@ function Register() {
 
   return (
     <div>
-      <h1 data-testid="top-title">Meu perfil</h1>
+      {TopMenu('Meu perfil')}
       <p>{message}</p>
       {nameInput(name, setName, setChange)}
       {emailInput(email)}

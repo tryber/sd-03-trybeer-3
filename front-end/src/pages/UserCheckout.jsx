@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { createSale, saveSaleProducts } from "../services/trybeerUserAPI";
+import TopMenu from '../components/TopMenu';
 
 const addressInput = (address, setAddress) => {
   return (
@@ -168,7 +169,7 @@ function UserCheckout() {
 
   return (
     <div>
-      <h1 data-testid="top-title">Finalizar Pedido</h1>
+      {TopMenu('Finalizar Pedido')}
       <h3>{message}</h3>
       {productsCards(purchase, setPurchase, setTotal, setMessage)}
       <h4 data-testid="order-total-value" className="order-total-value">

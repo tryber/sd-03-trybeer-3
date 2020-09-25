@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { allProducts, allSales, allSalesProducts} from "../services/trybeerUserAPI";
+import TopMenu from '../components/TopMenu';
 
 const productsCards = (purchase, products) => (
   <div className="checkout-container-card">
@@ -56,7 +57,7 @@ function UserCheckout() {
 
   return (
     <div>
-      <h1 data-testid="top-title">Finalizar Pedido</h1>
+      {TopMenu('Detalhes de Pedido')}
       <p data-testid="order-number" className="order-number">Pedido {id}</p>
       <p data-testid="order-date" className="order-date">{day}/{month}</p>
       {productsCards(purchase, products)}
