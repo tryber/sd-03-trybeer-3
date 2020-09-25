@@ -3,6 +3,7 @@ const registerService = require('./registerService');
 const profileService = require('./profileService');
 const productsService = require('./productsService');
 const salesService = require('./salesService');
+const individualProductService = require('./individualProductService');
 
 module.exports = {
   loginService,
@@ -10,4 +11,5 @@ module.exports = {
   profileService,
   productsService,
   salesService,
+  individualProductService,
 };

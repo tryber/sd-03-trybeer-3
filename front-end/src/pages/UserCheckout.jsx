@@ -1,19 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import { createSale } from "../services/trybeerUserAPI";
+import { createSale, saveSaleProducts } from "../services/trybeerUserAPI";
 
-const adressInput = (adress, setAdress) => {
+const addressInput = (address, setAddress) => {
   return (
     <div>
-      <label htmlFor="adress">
+      <label htmlFor="address">
         Rua
         <input
             type="text"
             data-testid="checkout-street-input"
-            id="adress"
-            onChange={(event) => setAdress(event.target.value) }
-            value={adress}
-            placeholder="Adress"
+            id="address"
+            onChange={(event) => setAddress(event.target.value) }
+            value={address}
+            placeholder="Address"
             className="checkout-street-input"
         />
       </label>
@@ -108,11 +108,21 @@ const checkoutButton = (clickToProducts, isDisabled) => (
   </div>
 );
 
+const saveIndividualProduct = async (elem, saleId) => {
+  await saveSaleProducts(saleId, elem.id, elem.amount)
+  return;
+};
+
+const savePurchase = async (saleId, purchase) => (
+  Promise.all(purchase.map((elem) => saveIndividualProduct(elem, saleId)))
+);
+
+
 function UserCheckout() {
   const [purchase, setPurchase] = useState([]);
   const [total, setTotal] = useState(0);
   const [email, setEmail] = useState('');
-  const [adress, setAdress] = useState('');
+  const [address, setAddress] = useState('');
   const [number, setNumber] = useState('');
   const [message, setMessage] = useState('');
   const history = useHistory();
@@ -135,10 +145,10 @@ function UserCheckout() {
     const month = String(date.getMonth() + 1).padStart(2, '0');
     const year = date.getFullYear();
     date = `${year}-${month}-${day}`;
-    const registerResponse = await createSale(email, total, adress, number, date);
+    const registerResponse = await createSale(email, total, address, number, date);
     setMessage(registerResponse.data.message);
+    savePurchase(registerResponse.data.saleId, purchase)
     localStorage.setItem('inProcessPurchase', JSON.stringify([]));
-    localStorage.setItem('total', JSON.stringify(0));
     setTimeout(() => {
       setMessage('');
       history.push('/products');
@@ -146,7 +156,7 @@ function UserCheckout() {
   };
 
   const isDisabled = () => {
-    if (total !== 0 && adress !== '' && number !== '') {
+    if (total !== 0 && address !== '' && number !== '') {
       return false;
     }
     return true;
@@ -160,7 +170,7 @@ function UserCheckout() {
       <h4 data-testid="order-total-value" className="order-total-value">
         Total: R${total}
       </h4>
-      {adressInput(adress, setAdress)}
+      {addressInput(address, setAddress)}
       {numberInput(number, setNumber)}
       {checkoutButton(clickToProducts, isDisabled)}
     </div>
