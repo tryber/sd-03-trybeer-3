@@ -6,6 +6,7 @@ const productsCards = (purchase, products) => (
   <div className="checkout-container-card">
     {purchase.map((e, index) => {
       const product = products.filter((elem) => elem.id === e.productId);
+      console.log(product, e)
       const totalProduct = (parseFloat(product.price) * parseInt(product.amount)).toFixed(2);
       return (
         <div>
@@ -26,7 +27,6 @@ const itensList = async (setProducts, actualUser, setPurchase, setTotal, id) => 
   const listSales = await allSales();
   const listSalesProducts = await allSalesProducts();
   const allSalesUser = listSales.data.filter((elem) => elem.userId === actualUser.data.id);
-  console.log(listProducts, listSales, listSalesProducts, allSalesUser)
   const actualSale = allSalesUser[(id -1)];
   const actualPurchase = listSalesProducts.data.filter((elem) => elem.saleId === actualSale.id);
   setPurchase(actualPurchase);
@@ -34,6 +34,7 @@ const itensList = async (setProducts, actualUser, setPurchase, setTotal, id) => 
   const actualTotal = actualPurchase.reduce((acc, elem) => {
     return (parseFloat(acc) + parseFloat(elem.price) * elem.amount).toFixed(2);
   }, 0);
+  console.log(actualPurchase)
   setTotal(actualTotal);
 };
 

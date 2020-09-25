@@ -82,8 +82,8 @@ const productsCards = (purchase, setPurchase, total, setTotal, setMessage) => (
           <div className="products-card">
             <p data-testid={`${index}-product-qtd-input`}>{e.amount}</p>
             <p data-testid={`${index}-product-name`}>{e.name}</p>
-            <p data-testid={`${index}-product-total-value`}>{totalProduct}</p>
-            <p data-testid={`${index}-product-price`}>
+            <p data-testid={`${index}-product-total-value`}>R$ {totalProduct}</p>
+            <p data-testid={`${index}-product-unit-price`}>
               {`(R$ ${parseFloat(e.price).toFixed(2).replace('.', ',')} un)`}
             </p>
           </div>
