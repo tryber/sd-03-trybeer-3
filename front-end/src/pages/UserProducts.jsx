@@ -12,16 +12,20 @@ const decrement = async (product, purchase, setPurchase, total, setTotal) => {
   if (amount === 1) {
     setPurchase(purchaseWithoutItem);
     localStorage.setItem('inProcessPurchase', JSON.stringify(purchaseWithoutItem));
+    const newtotal = purchaseWithoutItem.reduce((acc, elem) => {
+      return (parseFloat(acc) + parseFloat(elem.price) * elem.amount).toFixed(2).replace('.', ',');
+    }, 0);
+    return setTotal(newtotal);
   }
-  if (amount > 1){
-    const newAmount = (parseInt(amount) - 1);
-    const newItem = { id, name, image, price, amount: newAmount };
-    const newPurchase = [ ...purchaseWithoutItem, newItem];
-    setPurchase(newPurchase);
-    localStorage.setItem('inProcessPurchase', JSON.stringify(newPurchase));
-  }
-  const newtotal = await (parseFloat(total) - parseFloat(price)).toFixed(2).replace('.', ',');
-  setTotal(newtotal);
+  const newAmount = (parseInt(amount) - 1);
+  const newItem = { id, name, image, price, amount: newAmount };
+  const newPurchase = [ ...purchaseWithoutItem, newItem];
+  setPurchase(newPurchase);
+  localStorage.setItem('inProcessPurchase', JSON.stringify(newPurchase));
+  const newtotal = newPurchase.reduce((acc, elem) => {
+    return (parseFloat(acc) + parseFloat(elem.price) * elem.amount).toFixed(2).replace('.', ',');
+  }, 0);
+  return setTotal(newtotal);
 };
 
 const increment = async (product, purchase, setPurchase, total, setTotal) => {
@@ -31,9 +35,11 @@ const increment = async (product, purchase, setPurchase, total, setTotal) => {
   const newItem = { id, name, image, price, amount: newAmount };
   const newPurchase = [ ...purchaseWithoutItem, newItem];
   setPurchase(newPurchase);
-  const newtotal = await (parseFloat(total) + parseFloat(price)).toFixed(2).replace('.', ',');
-  setTotal(newtotal);
+  const newtotal = newPurchase.reduce((acc, elem) => {
+    return (parseFloat(acc) + parseFloat(elem.price) * elem.amount).toFixed(2).replace('.', ',');
+  }, 0);
   localStorage.setItem('inProcessPurchase', JSON.stringify(newPurchase));
+  return setTotal(newtotal);
 };
 
 const renderButtons = (id, e, purchase, setPurchase, total, setTotal) => {
@@ -110,7 +116,7 @@ function UserProducts() {
     itensList(setProducts);
     const actualPurchase = JSON.parse(localStorage.getItem('inProcessPurchase')) || [];
     const actualTotal = actualPurchase.reduce((acc, elem) => {
-      return (parseFloat(acc) + parseFloat(elem.price) * elem.amount).toFixed(2);
+      return (parseFloat(acc) + parseFloat(elem.price) * elem.amount).toFixed(2).replace('.', ',');
     }, 0);
     setPurchase(actualPurchase);
     setTotal(actualTotal);
