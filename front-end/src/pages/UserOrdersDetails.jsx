@@ -3,19 +3,18 @@ import { useParams } from 'react-router-dom';
 import { allProducts, allSales, allSalesProducts} from "../services/trybeerUserAPI";
 import TopMenu from '../components/TopMenu';
 
-const productsCards = (purchase, products) => (
+const productsCards = (purchase) => (
   <div className="checkout-container-card">
     {purchase.map((e, index) => {
-      const product = products.filter((elem) => elem.id === e.productId);
-      console.log(product, e)
-      const totalProduct = (parseFloat(product.price) * parseInt(product.amount)).toFixed(2);
+      console.log(e)
+      const totalProduct = (parseFloat(e.price) * parseInt(e.amount)).toFixed(2);
       return (
         <div>
           <div className="products-card">
-            <p data-testid={`${index}-product-qtd`}>{product.amount}</p>
-            <p data-testid={`${index}-product-name`}>{product.name}</p>
+            <p data-testid={`${index}-product-qtd`}>{e.amount}</p>
+            <p data-testid={`${index}-product-name`}>{e.name}</p>
             <p data-testid={`${index}-product-total-value`}>{totalProduct}</p>
-            <p data-testid={`${index}-product-price`}>{`(R$ ${product.price}un)`}</p>
+            <p data-testid={`${index}-product-price`}>{`(R$ ${e.price}un)`}</p>
           </div>
         </div>
       );
@@ -23,15 +22,21 @@ const productsCards = (purchase, products) => (
   </div>
 );
 
-const itensList = async (setProducts, actualUser, setPurchase, setTotal, id) => {
+const itensList = async (actualUser, setPurchase, setTotal, id) => {
   const listProducts = await allProducts();
   const listSales = await allSales();
   const listSalesProducts = await allSalesProducts();
   const allSalesUser = listSales.data.filter((elem) => elem.userId === actualUser.data.id);
   const actualSale = allSalesUser[(id -1)];
-  const actualPurchase = listSalesProducts.data.filter((elem) => elem.saleId === actualSale.id);
+  const actualPurchase = await listSalesProducts.data.reduce((acc, elem) => {
+    if (elem.saleId === actualSale.id) {
+      const product = listProducts.data.filter((elem) => elem.id === e.productId);
+      acc = [...acc, product];
+      return acc;
+    }
+    return acc;
+  }, []);
   setPurchase(actualPurchase);
-  setProducts(listProducts.data);
   const actualTotal = actualPurchase.reduce((acc, elem) => {
     return (parseFloat(acc) + parseFloat(elem.price) * elem.amount).toFixed(2);
   }, 0);
@@ -40,7 +45,6 @@ const itensList = async (setProducts, actualUser, setPurchase, setTotal, id) => 
 };
 
 function UserCheckout() {
-  const [products, setProducts] = useState([]);
   const [purchase, setPurchase] = useState([]);
   const [total, setTotal] = useState(0);
   const [day, setDay] = useState('');
@@ -50,7 +54,7 @@ function UserCheckout() {
   useEffect(() => {
     const actualUser = JSON.parse(localStorage.getItem('user'));
     if(!actualUser) return window.location.assign('http://localhost:3000/login');
-    itensList(setProducts, actualUser, setPurchase, setTotal, id);
+    itensList(actualUser, setPurchase, setTotal, id);
     //setDay(actualSale.date.split('-')[2]);
     //setMonth(actualSale.date.split('-')[1]);
   }, []);
@@ -60,7 +64,7 @@ function UserCheckout() {
       {TopMenu('Detalhes de Pedido')}
       <p data-testid="order-number" className="order-number">Pedido {id}</p>
       <p data-testid="order-date" className="order-date">{day}/{month}</p>
-      {productsCards(purchase, products)}
+      {productsCards(purchase)}
       <h4 data-testid="order-total-value" className="order-total-value">
         Total: R${total}
       </h4>

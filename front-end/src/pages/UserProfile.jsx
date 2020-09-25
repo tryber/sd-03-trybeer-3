@@ -59,7 +59,7 @@ const saveButton = (clickToSave, isDisabled) => (
   </div>
 );
 
-function Register() {
+function UserProfile() {
   const [name, setName] = useState('');
   const [email, setEMail] = useState('');
   const [token, setToken] = useState('');
@@ -99,4 +99,4 @@ function Register() {
   );
 }
 
-export default Register;
+export default UserProfile;
