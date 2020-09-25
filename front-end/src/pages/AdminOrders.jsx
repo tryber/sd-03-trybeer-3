@@ -33,7 +33,8 @@ const productsCards = (purchase, clickToOrdersDetail) => (
 
 const itensList = async (setPurchase) => {
   const listSales = await allSales();
-  setPurchase(listSales);
+  console.log(listSales)
+  setPurchase(listSales.data);
 };
 
 function AdminOrders() {
