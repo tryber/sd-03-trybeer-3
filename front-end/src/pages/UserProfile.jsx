@@ -37,6 +37,7 @@ const emailInput = (email) => {
             value={email}
             placeholder="email"
             className="profile-email-input"
+            readonly
         />
       </label>
     </div>

@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom';
 const test = (history, pathName) => {
     if (pathName == null) {
         localStorage.setItem('user', JSON.stringify({}));
-        return history.push('/');
+        return history.push('/login');
     };
     return history.push(`/${pathName}`);
 }
