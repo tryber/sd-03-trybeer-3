@@ -90,7 +90,7 @@ const cartButton = (total, clickToCart, isDisabled) => (
       onClick={() => clickToCart()}
       disabled={isDisabled()}
     >
-      Ver Carrinho   R$<h4 data-testid="checkout-bottom-btn-value">{total}</h4>
+      Ver Carrinho   R$ <h4 data-testid="checkout-bottom-btn-value">{total}</h4>
     </button>
   </div>
 );
