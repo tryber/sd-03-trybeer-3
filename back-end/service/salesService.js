@@ -10,8 +10,7 @@ const finishSales = async (email, total, address, number, date) => {
   const allUsers = await usersModel.getAllUsers();
   const { id } = allUsers.find((elem) => elem.email === email);
 
-  const totalToInsert = parseFloat(total).toFixed(2)
-    .replace(',', '.');
+  const totalToInsert = total.replace(',', '.');
 
   const checkout = await salesModel.finishSales(id, totalToInsert, address, number, date);
   const sales = await salesModel.allSales();

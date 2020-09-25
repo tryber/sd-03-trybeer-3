@@ -5,15 +5,20 @@ import { allSales } from "../services/trybeerUserAPI";
 const productsCards = (purchase, clickToCart) => (
   <div className="order-container-card">
     {purchase.map((e, index) => {
+      const month = new Date(e.date).getMonth()+1;
+      const day = new Date(e.date).getDate();
+      console.log(e.total)
       return (
         <div
           key={e.id}
           onClick={() => clickToCart((index + 1))}
           data-testid={`${index}-order-card-container`}
         >
-          <p data-testid={`${index}-order-number`}>Produto {(index + 1)}</p>
-          <p data-testid={`${index}-order-date`}>22/10</p>
-          <p data-testid={`${index}-order-total-value`}>R$ {e.total}</p>
+          <p data-testid={`${index}-order-number`}>Pedido {(index + 1)}</p>
+          <p data-testid={`${index}-order-date`}>{`${day}/${month}`}</p>
+          <p data-testid={`${index}-order-total-value`}>
+            R$ {parseFloat(e.total).toFixed(2).replace('.', ',')}
+          </p>
         </div>
       );
     })}
