@@ -9,7 +9,7 @@ const allSalesProduct = rescue(async (_req, res) => {
 
 const registerProduct = rescue(async (req, res) => {
   const { saleId, productId, quantity } = req.body;
-console.log('controller', saleId, productId, quantity)
+
   await individualProductService.registerProduct(saleId, productId, quantity);
 
   res.status(200).json();
