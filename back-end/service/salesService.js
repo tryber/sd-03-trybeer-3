@@ -26,7 +26,14 @@ const finishSales = async (email, total, address, number, date) => {
   return saleResponse;
 };
 
+const changeStatus = async (id) => {
+  await salesModel.changeStatus(id, 'Entregue');
+
+  return 'ok';
+};
+
 module.exports = {
   allSales,
   finishSales,
+  changeStatus,
 };

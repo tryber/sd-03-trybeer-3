@@ -57,9 +57,20 @@ const allSalesProduct = async () => connect()
   .then((results) => results.map(([saleId, productId, quantity]) => (
     { saleId, productId, quantity })));
 
+const changeStatus = async (id, status) => (
+  connect()
+    .then((db) => db
+      .getTable('sales')
+      .update()
+      .set('status', status)
+      .where('id = :id')
+      .bind('id', id)
+      .execute()));
+
 module.exports = {
   allSales,
   finishSales,
   registerProduct,
   allSalesProduct,
+  changeStatus,
 };

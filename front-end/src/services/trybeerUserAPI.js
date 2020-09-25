@@ -103,3 +103,11 @@ export const callSalesProducts = async () => {
 };
 
 export { callSalesProducts as allSalesProducts };
+
+export const changeToDelivered = async (id) => {
+  const data = await axios.put('http://localhost:3001/sales', { id })
+    .then((response) => response);
+  return data;
+};
+
+export { changeToDelivered as deliverySale };

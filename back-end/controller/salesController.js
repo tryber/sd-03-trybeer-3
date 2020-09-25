@@ -16,7 +16,16 @@ const finishSales = rescue(async (req, res) => {
   res.status(200).json(newSale);
 });
 
+const changeStatus = rescue(async (req, res) => {
+  const { id } = req.body;
+
+  const newSaleInfo = await salesService.changeStatus(id);
+
+  res.status(200).json(newSaleInfo);
+});
+
 module.exports = {
   allSales,
   finishSales,
+  changeStatus,
 };
