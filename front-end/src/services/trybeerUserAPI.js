@@ -62,11 +62,11 @@ export const callProducts = async () => {
 
 export { callProducts as allProducts };
 
-export const registerSale = async (email, total, adress, number, date) => {
+export const registerSale = async (email, total, address, number, date) => {
   const data = await axios.post('http://localhost:3001/sales', {
     email,
     total,
-    adress,
+    address,
     number,
     date,
   })
@@ -75,3 +75,11 @@ export const registerSale = async (email, total, adress, number, date) => {
 };
 
 export { registerSale as createSale };
+
+export const callSales = async () => {
+  const data = await axios.get('http://localhost:3001/sales')
+    .then((response) => response);
+  return data;
+};
+
+export { callSales as allSales };

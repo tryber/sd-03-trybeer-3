@@ -11,7 +11,7 @@ const singinEmail = rescue(async (req, res, next) => {
   if (userValue.error) {
     return next(userValue);
   }
-  const { id, password: usersecret, ...user } = userValue;
+  const { password: usersecret, ...user } = userValue;
   const jwtConfig = {
     expiresIn: '20d',
     algorithm: 'HS256',

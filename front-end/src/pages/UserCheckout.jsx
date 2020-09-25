@@ -2,18 +2,18 @@ import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { createSale } from "../services/trybeerUserAPI";
 
-const adressInput = (adress, setAdress) => {
+const addressInput = (address, setAddress) => {
   return (
     <div>
-      <label htmlFor="adress">
+      <label htmlFor="address">
         Rua
         <input
             type="text"
             data-testid="checkout-street-input"
-            id="adress"
-            onChange={(event) => setAdress(event.target.value) }
-            value={adress}
-            placeholder="Adress"
+            id="address"
+            onChange={(event) => setAddress(event.target.value) }
+            value={address}
+            placeholder="Address"
             className="checkout-street-input"
         />
       </label>
@@ -112,7 +112,7 @@ function UserCheckout() {
   const [purchase, setPurchase] = useState([]);
   const [total, setTotal] = useState(0);
   const [email, setEmail] = useState('');
-  const [adress, setAdress] = useState('');
+  const [address, setAddress] = useState('');
   const [number, setNumber] = useState('');
   const [message, setMessage] = useState('');
   const history = useHistory();
@@ -120,7 +120,7 @@ function UserCheckout() {
   useEffect(() => {
     const actualUser = JSON.parse(localStorage.getItem('user'));
     if(!actualUser) return window.location.assign('http://localhost:3000/login');
-    setEmail(actualUser.data.email);
+    setEmail(actualUser.data.id);
     const actualPurchase = JSON.parse(localStorage.getItem('inProcessPurchase'));
     setPurchase(actualPurchase);
     const actualTotal = actualPurchase.reduce((acc, elem) => {
@@ -135,7 +135,7 @@ function UserCheckout() {
     const month = String(date.getMonth() + 1).padStart(2, '0');
     const year = date.getFullYear();
     date = `${year}-${month}-${day}`;
-    const registerResponse = await createSale(email, total, adress, number, date);
+    const registerResponse = await createSale(email, total, address, number, date);
     setMessage(registerResponse.data.message);
     localStorage.setItem('inProcessPurchase', JSON.stringify([]));
     localStorage.setItem('total', JSON.stringify(0));
@@ -146,7 +146,7 @@ function UserCheckout() {
   };
 
   const isDisabled = () => {
-    if (total !== 0 && adress !== '' && number !== '') {
+    if (total !== 0 && address !== '' && number !== '') {
       return false;
     }
     return true;
@@ -160,7 +160,7 @@ function UserCheckout() {
       <h4 data-testid="order-total-value" className="order-total-value">
         Total: R${total}
       </h4>
-      {adressInput(adress, setAdress)}
+      {addressInput(address, setAddress)}
       {numberInput(number, setNumber)}
       {checkoutButton(clickToProducts, isDisabled)}
     </div>

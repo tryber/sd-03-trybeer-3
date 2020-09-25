@@ -21,7 +21,6 @@ const decrement = async (product, purchase, setPurchase, total, setTotal) => {
   }
   const newtotal = await (parseFloat(total) - parseFloat(price)).toFixed(2);
   setTotal(newtotal);
-  localStorage.setItem('total', JSON.stringify(newtotal));
 };
 
 const increment = async (product, purchase, setPurchase, total, setTotal) => {
@@ -34,7 +33,6 @@ const increment = async (product, purchase, setPurchase, total, setTotal) => {
   const newtotal = await (parseFloat(total) + parseFloat(price)).toFixed(2);
   setTotal(newtotal);
   localStorage.setItem('inProcessPurchase', JSON.stringify(newPurchase));
-  localStorage.setItem('total', JSON.stringify(newtotal));
 };
 
 const renderButtons = (id, e, purchase, setPurchase, total, setTotal) => {
@@ -110,7 +108,9 @@ function UserProducts() {
     if(!actualUser) return window.location.assign('http://localhost:3000/login');
     itensList(setProducts);
     const actualPurchase = JSON.parse(localStorage.getItem('inProcessPurchase')) || [];
-    const actualTotal = JSON.parse(localStorage.getItem('total')) || 0;
+    const actualTotal = actualPurchase.reduce((acc, elem) => {
+      return (parseFloat(acc) + parseFloat(elem.price) * elem.amount).toFixed(2);
+    }, 0);
     setPurchase(actualPurchase);
     setTotal(actualTotal);
   }, []);
