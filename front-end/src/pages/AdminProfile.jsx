@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { putNameUser } from "../services/trybeerUserAPI";
 import TopMenu from '../components/TopMenu';
 
 const nameInput = (name) => {
@@ -17,20 +16,6 @@ const emailInput = (email) => {
     </div>
   );
 };
-
-const saveButton = (clickToSave, isDisabled) => (
-  <div>
-    <button
-      type="button"
-      className="profile-save-btn"
-      data-testid="profile-save-btn"
-      onClick={() => clickToSave()}
-      disabled={isDisabled()}
-    >
-      Salvar
-    </button>
-  </div>
-);
 
 function AdminProfile() {
   const [name, setName] = useState('');
