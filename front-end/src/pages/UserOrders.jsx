@@ -10,7 +10,7 @@ const productsCards = (purchase, clickToCart) => (
       return (
         <div
           key={e.id}
-          onClick={() => clickToCart(e.id)}
+          onClick={() => clickToCart((index + 1))}
           data-testid={`${index}-order-card-container`}
         >
           <p data-testid={`${index}-order-number`}>Produto {(index + 1)}</p>
