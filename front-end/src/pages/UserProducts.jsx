@@ -20,7 +20,7 @@ const decrement = async (product, purchase, setPurchase, total, setTotal) => {
     setPurchase(newPurchase);
     localStorage.setItem('inProcessPurchase', JSON.stringify(newPurchase));
   }
-  const newtotal = await (parseFloat(total) - parseFloat(price)).toFixed(2);
+  const newtotal = await (parseFloat(total) - parseFloat(price)).toFixed(2).replace('.', ',');
   setTotal(newtotal);
   localStorage.setItem('total', JSON.stringify(newtotal));
 };
@@ -32,7 +32,7 @@ const increment = async (product, purchase, setPurchase, total, setTotal) => {
   const newItem = { id, name, image, price, amount: newAmount };
   const newPurchase = [ ...purchaseWithoutItem, newItem];
   setPurchase(newPurchase);
-  const newtotal = await (parseFloat(total) + parseFloat(price)).toFixed(2);
+  const newtotal = await (parseFloat(total) + parseFloat(price)).toFixed(2).replace('.', ',');
   setTotal(newtotal);
   localStorage.setItem('inProcessPurchase', JSON.stringify(newPurchase));
   localStorage.setItem('total', JSON.stringify(newtotal));
@@ -73,7 +73,7 @@ const productsCards = (products, purchase, setPurchase, total, setTotal) => (
         <div className="products-card">
           <img data-testid={`${(e.id -1)}-product-img`} src={e.image} width="100px" alt="" />
           <p data-testid={`${(e.id -1)}-product-name`}>{e.name}</p>
-          <p data-testid={`${(e.id -1)}-product-price`}>{e.price}</p>
+          <p data-testid={`${(e.id -1)}-product-price`}>R$ {(e.price).toFixed(2).replace('.', ',')}</p>
         </div>
         {renderButtons(e.id, e, purchase, setPurchase, total, setTotal)}
       </div>
@@ -90,7 +90,7 @@ const cartButton = (total, clickToCart, isDisabled) => (
       onClick={() => clickToCart()}
       disabled={isDisabled()}
     >
-      Ver carinho   R$<h4 data-testid="checkout-bottom-btn-value">{total}</h4>
+      Ver Carrinho   R$<h4 data-testid="checkout-bottom-btn-value">{total}</h4>
     </button>
   </div>
 );

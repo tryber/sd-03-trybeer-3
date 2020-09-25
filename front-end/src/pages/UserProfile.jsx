@@ -31,14 +31,13 @@ const emailInput = (email) => {
       <label htmlFor="email">
         Email
         <input
-            readonly
             type="email"
             data-testid="profile-email-input"
             id="email"
             value={email}
             placeholder="email"
             className="profile-email-input"
-            disabled
+            readonly="readonly"
         />
       </label>
     </div>
