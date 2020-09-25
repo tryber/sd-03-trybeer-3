@@ -30,7 +30,7 @@ const itensList = async (actualUser, setPurchase, setTotal, id) => {
   const actualSale = allSalesUser[(id -1)];
   const actualPurchase = await listSalesProducts.data.reduce((acc, elem) => {
     if (elem.saleId === actualSale.id) {
-      const product = listProducts.data.filter((elem) => elem.id === e.productId);
+      const product = listProducts.data.filter((elem) => elem.id === listProducts.data.productId);
       acc = [...acc, product];
       return acc;
     }

@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { putNameUser } from "../services/trybeerUserAPI";
-import TopMenu from '../components/TopMenu';
+import SideMenuAdmin from '../components/SideMenuAdmin';
 
 const nameInput = (name) => {
   return (
@@ -18,20 +17,6 @@ const emailInput = (email) => {
   );
 };
 
-const saveButton = (clickToSave, isDisabled) => (
-  <div>
-    <button
-      type="button"
-      className="profile-save-btn"
-      data-testid="profile-save-btn"
-      onClick={() => clickToSave()}
-      disabled={isDisabled()}
-    >
-      Salvar
-    </button>
-  </div>
-);
-
 function AdminProfile() {
   const [name, setName] = useState('');
   const [email, setEMail] = useState('');
@@ -45,7 +30,7 @@ function AdminProfile() {
 
   return (
     <div>
-      {TopMenu('Meu perfil')}
+      {SideMenuAdmin()}
       <h2>Perfil</h2>
       {nameInput(name)}
       {emailInput(email)}
