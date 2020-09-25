@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import TopMenu from '../components/TopMenu';
+import SideMenuAdmin from '../components/SideMenuAdmin';
 
 const nameInput = (name) => {
   return (
@@ -30,7 +31,8 @@ function AdminProfile() {
 
   return (
     <div>
-      {TopMenu('Meu perfil')}
+      <h1 data-testid="top-title">Trybeer</h1>
+      {SideMenuAdmin()}
       <h2>Perfil</h2>
       {nameInput(name)}
       {emailInput(email)}
