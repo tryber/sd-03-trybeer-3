@@ -50,7 +50,7 @@ const excludeProduct = async (
     setMessage('Não há produtos no carrinho');
   }
   const newtotal = await (parseFloat(total) - parseFloat(totalProduct)).toFixed(2);
-  setTotal(newtotal);
+  newtotal === 0 ? setTotal('0,00') : setTotal(newtotal);
 };
 
 const renderButtons = (
@@ -76,14 +76,16 @@ const renderButtons = (
 const productsCards = (purchase, setPurchase, total, setTotal, setMessage) => (
   <div className="checkout-container-card">
     {purchase.map((e, index) => {
-      const totalProduct = (parseFloat(e.price) * parseInt(e.amount)).toFixed(2);
+      const totalProduct = (parseFloat(e.price) * parseInt(e.amount)).toFixed(2).replace('.', ',');
       return (
         <div>
           <div className="products-card">
-            <p data-testid={`${index}-qtd-input`}>{e.amount}</p>
+            <p data-testid={`${index}-product-qtd-input`}>{e.amount}</p>
             <p data-testid={`${index}-product-name`}>{e.name}</p>
             <p data-testid={`${index}-product-total-value`}>{totalProduct}</p>
-            <p data-testid={`${index}-product-price`}>{`(R$ ${e.price}un)`}</p>
+            <p data-testid={`${index}-product-price`}>
+              {`(R$ ${parseFloat(e.price).toFixed(2).replace('.', ',')} un)`}
+            </p>
           </div>
           {renderButtons(
             index, e.id, purchase, setPurchase, total, setTotal, totalProduct, setMessage,
@@ -134,7 +136,7 @@ function UserCheckout() {
     const actualPurchase = JSON.parse(localStorage.getItem('inProcessPurchase'));
     setPurchase(actualPurchase);
     const actualTotal = actualPurchase.reduce((acc, elem) => {
-      return (parseFloat(acc) + parseFloat(elem.price) * elem.amount).toFixed(2);
+      return (parseFloat(acc) + parseFloat(elem.price) * elem.amount).toFixed(2).replace('.', ',');
     }, 0);
     setTotal(actualTotal);
   }, []);
@@ -156,7 +158,7 @@ function UserCheckout() {
   };
 
   const isDisabled = () => {
-    if (total !== 0 && address !== '' && number !== '') {
+    if (total !== '0,00' && address !== '' && number !== '') {
       return false;
     }
     return true;
@@ -168,7 +170,7 @@ function UserCheckout() {
       <h3>{message}</h3>
       {productsCards(purchase, setPurchase, total, setTotal, setMessage)}
       <h4 data-testid="order-total-value" className="order-total-value">
-        Total: R${total}
+        Total: R$ {total === 0 ? '0,00' : total}
       </h4>
       {addressInput(address, setAddress)}
       {numberInput(number, setNumber)}

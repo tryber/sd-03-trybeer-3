@@ -21,20 +21,25 @@ const productsCards = (purchase, products) => (
   </div>
 );
 
-const itensList = async (setProducts, setSales, setSalesProducts) => {
+const itensList = async (setProducts, actualUser, setPurchase, setTotal, id) => {
   const listProducts = await allProducts();
   const listSales = await allSales();
   const listSalesProducts = await allSalesProducts();
+  const allSalesUser = listSales.data.filter((elem) => elem.userId === actualUser.data.id);
+  console.log(listProducts, listSales, listSalesProducts, allSalesUser)
+  const actualSale = allSalesUser[(id -1)];
+  const actualPurchase = listSalesProducts.data.filter((elem) => elem.saleId === actualSale.id);
+  setPurchase(actualPurchase);
   setProducts(listProducts.data);
-  setSales(listSales.data);
-  setSalesProducts(listSalesProducts.data)
+  const actualTotal = actualPurchase.reduce((acc, elem) => {
+    return (parseFloat(acc) + parseFloat(elem.price) * elem.amount).toFixed(2);
+  }, 0);
+  setTotal(actualTotal);
 };
 
 function UserCheckout() {
   const [products, setProducts] = useState([]);
   const [purchase, setPurchase] = useState([]);
-  const [sales, setSales] = useState([]);
-  const [salesProducts, setSalesProducts] = useState([]);
   const [total, setTotal] = useState(0);
   const [day, setDay] = useState('');
   const [month, setMonth] = useState('');
@@ -43,17 +48,9 @@ function UserCheckout() {
   useEffect(() => {
     const actualUser = JSON.parse(localStorage.getItem('user'));
     if(!actualUser) return window.location.assign('http://localhost:3000/login');
-    itensList(setProducts, setSales, setSalesProducts);
-    const allSales = sales.filter((elem) => elem.userId === actualUser.data.id);
-    const actualSale = allSales[(id -1)];
-    setDay(actualSale.date.split('-')[2]);
-    setMonth(actualSale.date.split('-')[1]);
-    const actualPurchase = salesProducts.filter((elem) => elem.saleId === actualUser.id);
-    setPurchase(actualPurchase);
-    const actualTotal = actualPurchase.reduce((acc, elem) => {
-      return (parseFloat(acc) + parseFloat(elem.price) * elem.amount).toFixed(2);
-    }, 0);
-    setTotal(actualTotal);
+    itensList(setProducts, actualUser, setPurchase, setTotal, id);
+    //setDay(actualSale.date.split('-')[2]);
+    //setMonth(actualSale.date.split('-')[1]);
   }, []);
 
   return (
