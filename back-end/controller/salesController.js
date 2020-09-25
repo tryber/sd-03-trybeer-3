@@ -3,7 +3,7 @@ const rescue = require('express-rescue');
 const { salesService } = require('../service');
 
 const allSales = rescue(async (_req, res) => {
-  const sales = await productsService.allSales();
+  const sales = await salesService.allSales();
 
   res.status(200).json(sales);
 });

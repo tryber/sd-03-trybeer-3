@@ -1,7 +1,7 @@
 const { usersModel, salesModel } = require('../models');
 
 const allSales = async () => {
-  const sales = await productsModel.allSales();
+  const sales = await salesModel.allSales();
 
   return sales;
 };
