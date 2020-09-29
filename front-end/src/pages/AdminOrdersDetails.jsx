@@ -13,7 +13,7 @@ const productsCards = (purchase) => (
             <p data-testid={`${index}-product-qtd`}>{e.amount}</p>
             <p data-testid={`${index}-product-name`}>{e.name}</p>
             <p data-testid={`${index}-product-total-value`}>R$ {totalProduct}</p>
-            <p data-testid={`${index}-product-price`}>{`(R$ ${parseFloat(e.price).toFixed(2).replace('.', ',')}un)`}</p>
+            <p data-testid={`${index}-order-unit-price`}>{`(R$ ${parseFloat(e.price).toFixed(2).replace('.', ',')})`}</p>
           </div>
         </div>
       );
@@ -25,8 +25,8 @@ const deliveredButton = (clickToDeliver, id) => (
   <div>
     <button
       type="button"
-      className="checkout-finish-btn"
-      data-testid={`${parseFloat(id)-1}-order-number`}
+      className="mark-as-delivered-btn"
+      data-testid="mark-as-delivered-btn"
       onClick={() => clickToDeliver()}
     >
       Marcar como Entregue
