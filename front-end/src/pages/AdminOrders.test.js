@@ -5,8 +5,9 @@ import AdminOrders from './AdminOrders';
 import renderWithRouter from '../renderWithRouter';
 
 describe('Pagina de controle de pedidos, usuário administrador', () => {
-  test('Testando o componente renderiza corretamente', () => {
-    const div = document.createElement("div");
-    ReactDOM.render(<AdminOrders/>,div);
+  test('Testando onClick', () => {
+    const  { getAllByText } = renderWithRouter(<AdminOrders  />);
+    const ordersDivH2 = getAllByText(/Pedidos/i);
+    expect(ordersDivH2[0]).toBeInTheDocument();
   });
 });
