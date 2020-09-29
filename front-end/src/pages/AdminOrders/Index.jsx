@@ -21,9 +21,9 @@ const productsCards = (purchase, clickToOrdersDetail) => (
           </p>
           <p
             data-testid={`${index}-order-status`}
-            className={(e.status === 'Pendente') ? "order-status-pendente" : "order-status-pendente" }
+            className="order-status-pendente"
           >
-            {e.status}
+            {e.status}{console.log(e.status==='Entregue')}
           </p>
         </div>
       );
