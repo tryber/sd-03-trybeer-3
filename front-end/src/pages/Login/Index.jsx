@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { getLoginUser } from "../services/trybeerUserAPI";
+import { getLoginUser } from "../../services/trybeerUserAPI";
 
 const emailInput = (userEmail, setUserEMail) => {
   return (

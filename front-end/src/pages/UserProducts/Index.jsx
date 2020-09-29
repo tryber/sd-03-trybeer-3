@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import { allProducts } from "../services/trybeerUserAPI";
-import TopMenu from '../components/TopMenu';
+import { allProducts } from "../../services/trybeerUserAPI";
+import TopMenu from '../../components/TopMenu';
 
 const decrement = async (product, purchase, setPurchase, setTotal) => {
   const { id, name, image, price, amount } = product;

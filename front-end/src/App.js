@@ -1,16 +1,16 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import './App.css';
-import Login from './pages/Login';
-import Register from './pages/Register';
-import UserProfile from './pages/UserProfile';
-import UserProducts from './pages/UserProducts';
-import UserCheckout from './pages/UserCheckout';
-import UserOrders from './pages/UserOrders';
-import UserOrdersDetails from './pages/UserOrdersDetails';
-import AdminProfile from './pages/AdminProfile';
-import AdminOrders from './pages/AdminOrders';
-import AdminOrdersDetails from './pages/AdminOrdersDetails';
+import Login from './pages/Login/Index';
+import Register from './pages/Register/Index';
+import UserProfile from './pages/UserProfile/Index';
+import UserProducts from './pages/UserProducts/Index';
+import UserCheckout from './pages/UserCheckout/Index';
+import UserOrders from './pages/UserOrders/Index';
+import AdminProfile from './pages/AdminProfile/Index';
+import AdminOrders from './pages/AdminOrders/Index';
+import AdminOrdersDetails from './pages/AdminOrdersDetails/Index';
+import UserOrdersDetails from './pages/UserOrdersDetails/Index';
 
 function App() {
   return (

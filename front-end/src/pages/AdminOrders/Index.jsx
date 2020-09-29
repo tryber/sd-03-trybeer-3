@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import { allSales } from "../services/trybeerUserAPI";
-import SideMenuAdmin from '../components/SideMenuAdmin';
+import { allSales } from "../../services/trybeerUserAPI";
+import SideMenuAdmin from '../../components/SideMenuAdmin';
 
 const productsCards = (purchase, clickToOrdersDetail) => (
   <div className="order-container-card">

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { allProducts, allSales, allSalesProducts, deliverySale } from "../services/trybeerUserAPI";
-import SideMenuAdmin from '../components/SideMenuAdmin';
+import { allProducts, allSales, allSalesProducts, deliverySale } from "../../services/trybeerUserAPI";
+import SideMenuAdmin from '../../components/SideMenuAdmin';
 
 const productsCards = (purchase) => (
   <div className="checkout-container-card">
