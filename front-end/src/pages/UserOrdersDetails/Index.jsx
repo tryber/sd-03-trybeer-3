@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { allProducts, allSales, allSalesProducts} from "../../services/trybeerUserAPI";
+import { allProducts, allSales, allSalesProducts } from "../../services/trybeerUserAPI";
 import TopMenu from '../../components/TopMenu';
 
 const productsCards = (purchase) => (
