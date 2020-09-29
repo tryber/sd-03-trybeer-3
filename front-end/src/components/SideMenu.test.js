@@ -19,6 +19,7 @@ describe('Testa se os links estão redirecionando para as URLS de maneira' +
     const ordersButton  = getByTestId('side-menu-item-my-orders');
     fireEvent.click(ordersButton);
     const pathname = history.location.pathname;
+    console.log(pathname);
     expect(pathname).toBe('/orders');
   }) 
   test('testa o Botão de Perfil', () => {

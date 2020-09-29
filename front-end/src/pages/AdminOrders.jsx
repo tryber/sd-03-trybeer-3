@@ -42,7 +42,7 @@ function AdminOrders() {
 
   useEffect(() => {
     const actualUser = JSON.parse(localStorage.getItem('user'));
-    if(!actualUser) return window.location.assign('http://localhost:3000/login');
+    if(!actualUser) return  history.push('http://localhost:3000/login');
     itensList(setPurchase);
   }, []);
 
