@@ -6,7 +6,8 @@ import renderWithRouter from '../renderWithRouter';
 
 describe('Pagina de controle de pedidos, usuário administrador', () => {
   test('Testando o componente renderiza corretamente', () => {
-    const div = document.createElement("div");
-    ReactDOM.render(<AdminOrders/>,div);
+    const { getByTestId , container} = renderWithRouter(<AdminOrders />);
+    const state = getByTestId(container, 'purchase');
+    console.log(state);    
   });
 });
