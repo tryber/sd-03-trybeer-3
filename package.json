@@ -25,7 +25,8 @@
   "dependencies": {
     "@mysql/xdevapi": "^8.0.20",
     "mysql2": "^2.1.0",
-    "sequelize": "^6.3.4"
+    "sequelize": "^6.3.4",
+    "supertest": "^5.0.0"
   },
   "devDependencies": {
     "cypress": "^5.0.0",
