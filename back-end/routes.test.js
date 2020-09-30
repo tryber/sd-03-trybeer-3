@@ -2,7 +2,7 @@ const request = require('supertest')
 const  app  = require('./index')
 const connect = require('./models/connection');
 
-describe('Post Endpoints', () => {
+describe('Teste de Post', () => {
     beforeAll(() => {
         connect();
     });
