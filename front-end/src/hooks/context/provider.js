@@ -6,33 +6,32 @@ import { allProducts, allSales, allSalesProducts } from '../../services/trybeerU
 const RecipeAppProvider = ({ children }) => {
   const [user, setUser] = useState([]);
   const [token, setToken] = useState([]);
-  const [allSalesProduct, setAllSalesProduct] = useState([]);
-  const [allSale, setAllSale] = useState([]);
+  const [salesProduct, setSalesProduct] = useState([]);
+  const [sales, setSales] = useState([]);
   const [products, setProducts] = useState([]);
 
-  const fetchSaleAdmin = async (setAllSale, setAllSalesProduct) => {
+  const fetchSaleAdmin = async () => {
     const listSales = await allSales();
     const listSalesProducts = await allSalesProducts();
-    setAllSale(listSales.data);
-    setAllSalesProduct(listSalesProducts.data);
-  }
+    setSales(listSales.data);
+    setSalesProduct(listSalesProducts.data);
+  };
 
-  const fetchSaleUser = async (user, setAllSale, setAllSalesProduct) => {
-    const listSales = await allSales();
+  const fetchSaleUser = async (info) => {
+    const listSales = await allSales(info);
     const listSalesProducts = await allSalesProducts();
-    setAllSale(listSales.data);
-    setAllSalesProduct(listSalesProducts.data);
-  }
+    setSales(listSales.data);
+    setSalesProduct(listSalesProducts.data);
+  };
 
-  const fetchData = async(user) => {
+  const fetchData = async (info) => {
     const listProducts = await allProducts();
     setProducts(listProducts.data);
-    if (user.role === 'administrator') {
-      await fetchSaleAdmin(setAllSale, setAllSalesProduct);
+    if (info.role === 'administrator') {
+      await fetchSaleAdmin(setSales, setSalesProduct);
       return;
     }
-    await fetchSaleUser(user, setAllSale, setAllSalesProduct);
-    return;
+    await fetchSaleUser(info, setSales, setSalesProduct);
   };
 
   const context = {
@@ -40,16 +39,16 @@ const RecipeAppProvider = ({ children }) => {
     setUser,
     token,
     setToken,
-    allSalesProduct,
-    setAllSalesProduct,
-    allSale,
-    setAllSale,
+    salesProduct,
+    setSalesProduct,
+    sales,
+    setSales,
     products,
     fetchData,
   };
 
   return (
-    <TrybeerContext.Provider value={context}>
+    <TrybeerContext.Provider value={ context }>
       {children}
     </TrybeerContext.Provider>
   );
