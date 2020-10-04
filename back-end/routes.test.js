@@ -63,3 +63,41 @@ describe('Testando produtos indiviudais',  () => {
     expect(res.statusCode).toEqual(500);
   }) 
 })
+
+describe('Testando produtos', () => {
+  test('Testando o retorno da lista de produtos',async () => {
+    const res = await request(app)
+    .get('/products')
+    expect(res.statusCode).toEqual(200);
+  })
+})
+
+describe('Testando Perfil', () => {
+  test('Testando o retorno das informações do Perfil',async () => {
+    const res = await request(app)
+    .put('/profile')
+    .send({ "name":"Bruno Silva Batista",
+    "email":"bruno.batista@gmail.com"
+       ,"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImlkIjoyLCJuYW1lIjoiQnJ1bm8gU2lsdmEgQmF0aXN0YSIsImVtYWlsIjoiYnJ1bm8uYmF0aXN0YUBnbWFpbC5jb20iLCJyb2xlIjoiY2xpZW50In0sImlhdCI6MTYwMTg0MDE1MywiZXhwIjoxNjAzNTY4MTUzfQ.S0TH3VFOKbowDDgeZJSHhYPZKbW0Giu1ovRIiuru_Rs"
+     })
+    expect(res.statusCode).toEqual(200);
+  })
+  test('Testando erro no  retorno das informações do Perfil sem token',async () => {
+    const res = await request(app)
+    .put('/profile')
+    .send({ "name":"Bruno Silva Batista",
+    "email":"bruno.batista@gmail.com"
+       ,"token":""
+     })
+    expect(res.statusCode).toEqual(401);
+  })
+  test('Testando erro no  retorno das informações do Perfil sem o Email',async () => {
+    const res = await request(app)
+    .put('/profile')
+    .send({ "name":"Bruno Silva Batista",
+    "email":""
+       ,"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImlkIjoyLCJuYW1lIjoiQnJ1bm8gU2lsdmEgQmF0aXN0YSIsImVtYWlsIjoiYnJ1bm8uYmF0aXN0YUBnbWFpbC5jb20iLCJyb2xlIjoiY2xpZW50In0sImlhdCI6MTYwMTg0MDE1MywiZXhwIjoxNjAzNTY4MTUzfQ.S0TH3VFOKbowDDgeZJSHhYPZKbW0Giu1ovRIiuru_Rs"
+     })
+    expect(res.statusCode).toEqual(500);
+  })
+})
