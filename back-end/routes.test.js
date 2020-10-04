@@ -41,13 +41,9 @@ describe('Testando produtos indiviudais', () => {
     expect(res.statusCode).toEqual(200);
   });
   test('Testando a inserção de produtos para uma venda', async () => {
-    await connect()
-      .then((db) => {
-        db.getTable('sales_products')
-          .delete()
-          .where('sale_id = 1')
-          .execute();
-      });
+    const connection = await connect().then((db) => db.getTable('sales_products'));
+    connection.delete().where('sale_id = 1')
+      .execute();
     const res = await request(app)
       .post('/individualProduct')
       .send({
