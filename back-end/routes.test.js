@@ -2,10 +2,10 @@ const request = require('supertest')
 const  app  = require('./index')
 const connect = require('./models/connection')
  afterEach(async () =>{
-  await connect().catch(error => console.log(error)) 
+  await connect() 
 
 }) 
-describe('Teste de Post', () => {
+describe('Teste de Login', () => {
   it('Testando o login correto', async () => {
     const res = await request(app)
       .post('/login')
