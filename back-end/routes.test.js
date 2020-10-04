@@ -5,7 +5,7 @@ const connect = require('./models/connection')
   await connect() 
 
 }) 
-describe('Teste de Login', () => {
+describe('Testando Login', () => {
   it('Testando o login correto', async () => {
     const res = await request(app)
       .post('/login')
@@ -100,4 +100,24 @@ describe('Testando Perfil', () => {
      })
     expect(res.statusCode).toEqual(500);
   })
+})
+
+describe('Testando o Registro', () => {
+  test('Registrando um usuário', async () => {
+    await connect()
+    .then((db) => {
+     db.getTable('users')
+     .delete().where('email = "cpereiramt@gmail.com"')
+     .execute()
+    })
+    const res = await request(app)
+    .post('/register')
+    .send({ "name":"clayton pereira",
+    "email":"cpereiramt@gmail.com",
+    "password":"12345678",
+     "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImlkIjoyLCJuYW1lIjoiQnJ1bm8gU2lsdmEgQmF0aXN0YSIsImVtYWlsIjoiYnJ1bm8uYmF0aXN0YUBnbWFpbC5jb20iLCJyb2xlIjoiY2xpZW50In0sImlhdCI6MTYwMTg0MDE1MywiZXhwIjoxNjAzNTY4MTUzfQ.S0TH3VFOKbowDDgeZJSHhYPZKbW0Giu1ovRIiuru_Rs",
+     "role":"comum"
+     })
+     expect(res.statusCode).toEqual(200);
+  })  
 })
