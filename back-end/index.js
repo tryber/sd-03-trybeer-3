@@ -19,7 +19,7 @@ app.use('/images', express.static('images'));
 
 app.use((error, _req, res, _next) => {
   const { message, status } = error;
-  
+
   if (status < 500) {
     return res.status(status).json({ message });
   }
@@ -28,6 +28,6 @@ app.use((error, _req, res, _next) => {
 
 const PORT = process.env.PORT || 3001;
 
- app.listen(PORT, () => console.log(`listen on port: ${PORT}`));
+app.listen(PORT, () => console.log(`listen on port: ${PORT}`));
 
- module.exports = app;
+module.exports = app;

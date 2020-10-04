@@ -9,7 +9,8 @@
     "start:watch": "nodemon index.js",
     "test": "jest",
     "test-coverage": "jest --coverage --watchAll=false",
-    "lint": "eslint --no-inline-config --no-error-on-unmatched-pattern -c .eslintrc.json ."
+    "lint": "eslint --no-inline-config --no-error-on-unmatched-pattern -c .eslintrc.json .",
+    "lint:fix": "eslint --fix --ext .js,.jsx ."
   },
   "keywords": [],
   "author": "",
