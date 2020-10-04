@@ -1,44 +1,40 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { getLoginUser } from "../services/trybeerUserAPI";
+import { getLoginUser } from '../services/trybeerUserAPI';
 
-const emailInput = (userEmail, setUserEMail) => {
-  return (
-    <div>
-      <label htmlFor="email">
-        Email
-        <input
-            type="email"
-            data-testid="email-input"
-            id="email"
-            onChange={(event) => setUserEMail(event.target.value)}
-            value={userEmail}
-            placeholder="email"
-            className="email-input"
-        />
-      </label>
-    </div>
-  );
-};
+const emailInput = (userEmail, setUserEMail) => (
+  <div>
+    <label htmlFor="email">
+      Email
+      <input
+        type="email"
+        data-testid="email-input"
+        id="email"
+        onChange={ (event) => setUserEMail(event.target.value) }
+        value={ userEmail }
+        placeholder="email"
+        className="email-input"
+      />
+    </label>
+  </div>
+);
 
-const passwordInput = (userPassword, setUserPassword) => {
-  return (
-    <div>
-      <label htmlFor="password">
-        Password
-        <input
-          type="password"
-          data-testid="password-input"
-          id="password"
-          onChange={(event) => setUserPassword(event.target.value)}
-          value={userPassword}
-          placeholder="senha"
-          className="password-input"
-        />
-      </label>
-    </div>
-  );
-};
+const passwordInput = (userPassword, setUserPassword) => (
+  <div>
+    <label htmlFor="password">
+      Password
+      <input
+        type="password"
+        data-testid="password-input"
+        id="password"
+        onChange={ (event) => setUserPassword(event.target.value) }
+        value={ userPassword }
+        placeholder="senha"
+        className="password-input"
+      />
+    </label>
+  </div>
+);
 
 const enterButton = (clickToEnter, isDisabled) => (
   <div>
@@ -46,8 +42,8 @@ const enterButton = (clickToEnter, isDisabled) => (
       type="button"
       className="signin-btn"
       data-testid="signin-btn"
-      onClick={() => clickToEnter()}
-      disabled={isDisabled()}
+      onClick={ () => clickToEnter() }
+      disabled={ isDisabled() }
     >
       ENTRAR
     </button>
@@ -60,7 +56,7 @@ const registerButton = (history) => (
       type="button"
       className="no-account-btn"
       data-testid="no-account-btn"
-      onClick={() => history.push('/register')}
+      onClick={ () => history.push('/register') }
     >
       Ainda não tenho conta
     </button>
@@ -78,7 +74,7 @@ function Login() {
       return alert(logedUser.err);
     }
     if (logedUser.data.role === 'administrator') {
-      return history.push('/admin/orders')
+      return history.push('/admin/orders');
     }
     history.push('/products');
   };

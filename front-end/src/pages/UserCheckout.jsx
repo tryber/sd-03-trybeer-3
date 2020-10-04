@@ -1,45 +1,41 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import { createSale, saveSaleProducts } from "../services/trybeerUserAPI";
+import { createSale, saveSaleProducts } from '../services/trybeerUserAPI';
 import TopMenu from '../components/TopMenu';
 
-const addressInput = (address, setAddress) => {
-  return (
-    <div>
-      <label htmlFor="address">
-        Rua
-        <input
-            type="text"
-            data-testid="checkout-street-input"
-            id="address"
-            onChange={(event) => setAddress(event.target.value) }
-            value={address}
-            placeholder="Address"
-            className="checkout-street-input"
-        />
-      </label>
-    </div>
-  );
-};
+const addressInput = (address, setAddress) => (
+  <div>
+    <label htmlFor="address">
+      Rua
+      <input
+        type="text"
+        data-testid="checkout-street-input"
+        id="address"
+        onChange={ (event) => setAddress(event.target.value) }
+        value={ address }
+        placeholder="Address"
+        className="checkout-street-input"
+      />
+    </label>
+  </div>
+);
 
-const numberInput = (number, setNumber) => {
-  return (
-    <div>
-      <label htmlFor="number">
-        Número da casa
-        <input
-            type="text"
-            data-testid="checkout-house-number-input"
-            id="number"
-            onChange={(event) => setNumber(event.target.value) }
-            value={number}
-            placeholder="number"
-            className="checkout-house-number-input"
-        />
-      </label>
-    </div>
-  );
-};
+const numberInput = (number, setNumber) => (
+  <div>
+    <label htmlFor="number">
+      Número da casa
+      <input
+        type="text"
+        data-testid="checkout-house-number-input"
+        id="number"
+        onChange={ (event) => setNumber(event.target.value) }
+        value={ number }
+        placeholder="number"
+        className="checkout-house-number-input"
+      />
+    </label>
+  </div>
+);
 
 const excludeProduct = async (
   product, purchase, setPurchase, setTotal, setMessage,
@@ -47,12 +43,10 @@ const excludeProduct = async (
   const purchaseWithoutItem = await purchase.filter((elem) => elem.id !== product.id);
   setPurchase(purchaseWithoutItem);
   localStorage.setItem('inProcessPurchase', JSON.stringify(purchaseWithoutItem));
-  if ( purchaseWithoutItem.length === 0) {
+  if (purchaseWithoutItem.length === 0) {
     setMessage('Não há produtos no carrinho');
   }
-  const newtotal = purchaseWithoutItem.reduce((acc, elem) => {
-      return (parseFloat(acc) + (parseFloat(elem.price) * parseFloat(elem.amount)));
-    }, 0);
+  const newtotal = purchaseWithoutItem.reduce((acc, elem) => (parseFloat(acc) + (parseFloat(elem.price) * parseFloat(elem.amount))), 0);
   setTotal(parseFloat(newtotal).toFixed(2).replace('.', ','));
 };
 
@@ -63,18 +57,18 @@ const renderButtons = (
   return (
     <div className="removal-button-container">
       <button
-        onClick={() => excludeProduct(
+        onClick={ () => excludeProduct(
           product, purchase, setPurchase, setTotal, setMessage,
-        )}
+        ) }
         type="button"
-        data-testid={`${index}-removal-button`}
+        data-testid={ `${index}-removal-button` }
         className="removal-button"
       >
         x
       </button>
     </div>
   );
-}
+};
 
 const productsCards = (purchase, setPurchase, setTotal, setMessage) => (
   <div className="checkout-container-card">
@@ -83,10 +77,13 @@ const productsCards = (purchase, setPurchase, setTotal, setMessage) => (
       return (
         <div>
           <div className="products-card">
-            <p data-testid={`${index}-product-qtd-input`}>{e.amount}</p>
-            <p data-testid={`${index}-product-name`}>{e.name}</p>
-            <p data-testid={`${index}-product-total-value`}>R$ {totalProduct}</p>
-            <p data-testid={`${index}-product-unit-price`}>
+            <p data-testid={ `${index}-product-qtd-input` }>{e.amount}</p>
+            <p data-testid={ `${index}-product-name` }>{e.name}</p>
+            <p data-testid={ `${index}-product-total-value` }>
+              R$
+              {totalProduct}
+            </p>
+            <p data-testid={ `${index}-product-unit-price` }>
               {`(R$ ${parseFloat(e.price).toFixed(2).replace('.', ',')} un)`}
             </p>
           </div>
@@ -105,8 +102,8 @@ const checkoutButton = (clickToProducts, isDisabled) => (
       type="button"
       className="checkout-finish-btn"
       data-testid="checkout-finish-btn"
-      onClick={() => clickToProducts()}
-      disabled={isDisabled()}
+      onClick={ () => clickToProducts() }
+      disabled={ isDisabled() }
     >
       Finalizar Pedido
     </button>
@@ -114,14 +111,12 @@ const checkoutButton = (clickToProducts, isDisabled) => (
 );
 
 const saveIndividualProduct = async (elem, saleId) => {
-  await saveSaleProducts(saleId, elem.id, elem.amount)
-  return;
+  await saveSaleProducts(saleId, elem.id, elem.amount);
 };
 
 const savePurchase = async (saleId, purchase) => (
   Promise.all(purchase.map((elem) => saveIndividualProduct(elem, saleId)))
 );
-
 
 function UserCheckout() {
   const [purchase, setPurchase] = useState([]);
@@ -134,13 +129,11 @@ function UserCheckout() {
 
   useEffect(() => {
     const actualUser = JSON.parse(localStorage.getItem('user'));
-    if(!actualUser) return window.location.assign('http://localhost:3000/login');
+    if (!actualUser) return window.location.assign('http://localhost:3000/login');
     setEmail(actualUser.data.email);
     const actualPurchase = JSON.parse(localStorage.getItem('inProcessPurchase'));
     setPurchase(actualPurchase);
-    const actualTotal = actualPurchase.reduce((acc, elem) => {
-      return (parseFloat(acc) + parseFloat(elem.price) * elem.amount).toFixed(2).replace('.', ',');
-    }, 0);
+    const actualTotal = actualPurchase.reduce((acc, elem) => (parseFloat(acc) + parseFloat(elem.price) * elem.amount).toFixed(2).replace('.', ','), 0);
     setTotal(actualTotal);
   }, []);
 
@@ -152,7 +145,7 @@ function UserCheckout() {
     date = `${year}-${month}-${day}`;
     const registerResponse = await createSale(email, total, address, number, date);
     setMessage(registerResponse.data.message);
-    savePurchase(registerResponse.data.saleId, purchase)
+    savePurchase(registerResponse.data.saleId, purchase);
     localStorage.setItem('inProcessPurchase', JSON.stringify([]));
     setTimeout(() => {
       setMessage('');
@@ -173,7 +166,9 @@ function UserCheckout() {
       <h3>{message}</h3>
       {productsCards(purchase, setPurchase, setTotal, setMessage)}
       <h4 data-testid="order-total-value" className="order-total-value">
-        Total: R$ {total === 0 ? '0,00' : total}
+        Total: R$
+        {' '}
+        {total === 0 ? '0,00' : total}
       </h4>
       {addressInput(address, setAddress)}
       {numberInput(number, setNumber)}

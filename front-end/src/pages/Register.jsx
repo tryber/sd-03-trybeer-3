@@ -1,82 +1,74 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { postNewUser } from "../services/trybeerUserAPI";
+import { postNewUser } from '../services/trybeerUserAPI';
 
-const nameInput = (name, setName) => {
-  return (
-    <div>
-      <label htmlFor="name">
-        Nome
-        <input
-            type="text"
-            data-testid="signup-name"
-            id="name"
-            onChange={(event) => setName(event.target.value)}
-            value={name}
-            placeholder="nome"
-            className="signup-name"
-        />
-      </label>
-    </div>
-  );
-};  
+const nameInput = (name, setName) => (
+  <div>
+    <label htmlFor="name">
+      Nome
+      <input
+        type="text"
+        data-testid="signup-name"
+        id="name"
+        onChange={ (event) => setName(event.target.value) }
+        value={ name }
+        placeholder="nome"
+        className="signup-name"
+      />
+    </label>
+  </div>
+);
 
-const emailInput = (email, setEMail) => {
-  return (
-    <div>
-      <label htmlFor="email">
-        Email
-        <input
-            type="email"
-            data-testid="signup-email"
-            id="email"
-            onChange={(event) => setEMail(event.target.value)}
-            value={email}
-            placeholder="email"
-            className="signup-email"
-        />
-      </label>
-    </div>
-  );
-};
+const emailInput = (email, setEMail) => (
+  <div>
+    <label htmlFor="email">
+      Email
+      <input
+        type="email"
+        data-testid="signup-email"
+        id="email"
+        onChange={ (event) => setEMail(event.target.value) }
+        value={ email }
+        placeholder="email"
+        className="signup-email"
+      />
+    </label>
+  </div>
+);
 
-const passwordInput = (password, setPassword) => {
-  return (
-    <div>
-      <label htmlFor="password">
-        Password
-        <input
-          type="password"
-          data-testid="signup-password"
-          id="password"
-          onChange={(event) => setPassword(event.target.value)}
-          value={password}
-          placeholder="senha"
-          className="signup-password"
-        />
-      </label>
-    </div>
-  );
-};
+const passwordInput = (password, setPassword) => (
+  <div>
+    <label htmlFor="password">
+      Password
+      <input
+        type="password"
+        data-testid="signup-password"
+        id="password"
+        onChange={ (event) => setPassword(event.target.value) }
+        value={ password }
+        placeholder="senha"
+        className="signup-password"
+      />
+    </label>
+  </div>
+);
 
-const roleInput = (role, setRole) => {
-  return (
-    <div>
-      <label htmlFor="role">
-        <input
-          type="checkbox"
-          data-testid="signup-seller"
-          id="role"
-          onChange={() => (role === 'client')
-            ? setRole('administrator')
-            : setRole('client')}
-          className="signup-seller"
-        />
-        Quero Vender
-      </label>
-    </div>
-  );
-};
+const roleInput = (role, setRole) => (
+  <div>
+    <label htmlFor="role">
+      <input
+        type="checkbox"
+        data-testid="signup-seller"
+        id="role"
+        onChange={ () => ((role === 'client')
+          ? setRole('administrator')
+          : setRole('client')) }
+        className="signup-seller"
+      />
+      Quero Vender
+    </label>
+  </div>
+);
 
 const registerButton = (clickToEnter, isDisabled) => (
   <div>
@@ -84,8 +76,8 @@ const registerButton = (clickToEnter, isDisabled) => (
       type="button"
       className="signup-btn"
       data-testid="signup-btn"
-      onClick={() => clickToEnter()}
-      disabled={isDisabled()}
+      onClick={ () => clickToEnter() }
+      disabled={ isDisabled() }
     >
       Cadastrar
     </button>
@@ -107,7 +99,7 @@ function Register() {
       return setAlertEmailExist(true);
     }
     if (role === 'administrator') {
-      return history.push('/admin/orders')
+      return history.push('/admin/orders');
     }
     history.push('/products');
   };

@@ -14,7 +14,6 @@ export const foo = async (email, password) => {
   return data;
 };
 
-
 export { foo as getLoginUser };
 
 export const register = async (name, email, password, role) => {

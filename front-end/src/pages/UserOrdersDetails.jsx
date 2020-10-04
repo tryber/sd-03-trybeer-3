@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { allProducts, allSales, allSalesProducts} from "../services/trybeerUserAPI";
+import { allProducts, allSales, allSalesProducts } from '../services/trybeerUserAPI';
 import TopMenu from '../components/TopMenu';
 
 const productsCards = (purchase) => (
@@ -10,10 +10,13 @@ const productsCards = (purchase) => (
       return (
         <div>
           <div className="products-card">
-            <p data-testid={`${index}-product-qtd`}>{e.amount}</p>
-            <p data-testid={`${index}-product-name`}>{e.name}</p>
-            <p data-testid={`${index}-product-total-value`}>R$ {totalProduct}</p>
-            <p data-testid={`${index}-product-price`}>{`(R$ ${parseFloat(e.price).toFixed(2).replace('.', ',')}un)`}</p>
+            <p data-testid={ `${index}-product-qtd` }>{e.amount}</p>
+            <p data-testid={ `${index}-product-name` }>{e.name}</p>
+            <p data-testid={ `${index}-product-total-value` }>
+              R$
+              {totalProduct}
+            </p>
+            <p data-testid={ `${index}-product-price` }>{`(R$ ${parseFloat(e.price).toFixed(2).replace('.', ',')}un)`}</p>
           </div>
         </div>
       );
@@ -30,22 +33,20 @@ const itensList = async (actualUser, setPurchase, setTotal, id, setDay, setMonth
   const actualPurchase = await listSalesProducts.data.reduce((acc, elem) => {
     if (elem.saleId === actualSale.id) {
       const product = listProducts.data.filter((e) => e.id === elem.productId);
-      const obj = {...product[0], amount: elem.quantity}
+      const obj = { ...product[0], amount: elem.quantity };
       acc = [...acc, obj];
       return acc;
     }
     return acc;
   }, []);
   setPurchase(actualPurchase);
-  const actualTotal = actualPurchase.reduce((acc, elem) => {
-    return (parseFloat(acc) + parseFloat(elem.price) * elem.amount).toFixed(2).replace('.', ',');
-  }, 0);
+  const actualTotal = actualPurchase.reduce((acc, elem) => (parseFloat(acc) + parseFloat(elem.price) * elem.amount).toFixed(2).replace('.', ','), 0);
   setDay(new Date(actualSale.date).getUTCDate());
-  setMonth(new Date(actualSale.date).getMonth()+1);
+  setMonth(new Date(actualSale.date).getMonth() + 1);
   setTotal(actualTotal);
 };
 
-const dateFunc = (time) => ("0" + time).slice(-2);
+const dateFunc = (time) => (`0${time}`).slice(-2);
 
 function UserCheckout() {
   const [purchase, setPurchase] = useState([]);
@@ -56,18 +57,27 @@ function UserCheckout() {
 
   useEffect(() => {
     const actualUser = JSON.parse(localStorage.getItem('user'));
-    if(!actualUser) return window.location.assign('http://localhost:3000/login');
+    if (!actualUser) return window.location.assign('http://localhost:3000/login');
     itensList(actualUser, setPurchase, setTotal, id, setDay, setMonth);
   }, []);
 
   return (
     <div>
       {TopMenu('Detalhes de Pedido')}
-      <p data-testid="order-number" className="order-number">Pedido {id}</p>
-      <p data-testid="order-date" className="order-date">{dateFunc(day)}/{dateFunc(month)}</p>
+      <p data-testid="order-number" className="order-number">
+        Pedido
+        {id}
+      </p>
+      <p data-testid="order-date" className="order-date">
+        {dateFunc(day)}
+        /
+        {dateFunc(month)}
+      </p>
       {productsCards(purchase)}
       <h4 data-testid="order-total-value" className="order-total-value">
-        Total: R$ {total}
+        Total: R$
+        {' '}
+        {total}
       </h4>
     </div>
   );

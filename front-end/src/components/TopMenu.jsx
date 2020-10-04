@@ -7,16 +7,16 @@ function TopMenu(title) {
   return (
     <div>
       <img
-        onClick={() => setSideMenuState(!sideMenuState)}
+        onClick={ () => setSideMenuState(!sideMenuState) }
         data-testid="top-hamburguer"
-        src={cardapio}
-        alt='side-menu'
+        src={ cardapio }
+        alt="side-menu"
         height="42"
       />
       <h1 data-testid="top-title">{title}</h1>
       {SideMenu(sideMenuState)}
     </div>
-  )
+  );
 }
 
 export default TopMenu;

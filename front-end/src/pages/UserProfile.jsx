@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { putNameUser } from "../services/trybeerUserAPI";
+import { putNameUser } from '../services/trybeerUserAPI';
 import TopMenu from '../components/TopMenu';
 
 const dealWithChange = (setName, setChange, value) => {
@@ -7,43 +7,39 @@ const dealWithChange = (setName, setChange, value) => {
   setChange(false);
 };
 
-const nameInput = (name, setName, setChange) => {
-  return (
-    <div>
-      <label htmlFor="name">
-        Name
-        <input
-            type="text"
-            data-testid="profile-name-input"
-            id="name"
-            onChange={(event) => dealWithChange(setName, setChange, event.target.value) }
-            value={name}
-            placeholder="nome"
-            className="profile-name-input"
-        />
-      </label>
-    </div>
-  );
-};
+const nameInput = (name, setName, setChange) => (
+  <div>
+    <label htmlFor="name">
+      Name
+      <input
+        type="text"
+        data-testid="profile-name-input"
+        id="name"
+        onChange={ (event) => dealWithChange(setName, setChange, event.target.value) }
+        value={ name }
+        placeholder="nome"
+        className="profile-name-input"
+      />
+    </label>
+  </div>
+);
 
-const emailInput = (email) => {
-  return (
-    <div>
-      <label htmlFor="email">
-        Email
-        <input
-            type="email"
-            data-testid="profile-email-input"
-            id="email"
-            value={email}
-            placeholder="email"
-            className="profile-email-input"
-            readonly="readonly"
-        />
-      </label>
-    </div>
-  );
-};
+const emailInput = (email) => (
+  <div>
+    <label htmlFor="email">
+      Email
+      <input
+        type="email"
+        data-testid="profile-email-input"
+        id="email"
+        value={ email }
+        placeholder="email"
+        className="profile-email-input"
+        readOnly="readonly"
+      />
+    </label>
+  </div>
+);
 
 const saveButton = (clickToSave, isDisabled) => (
   <div>
@@ -51,8 +47,8 @@ const saveButton = (clickToSave, isDisabled) => (
       type="button"
       className="profile-save-btn"
       data-testid="profile-save-btn"
-      onClick={() => clickToSave()}
-      disabled={isDisabled()}
+      onClick={ () => clickToSave() }
+      disabled={ isDisabled() }
     >
       Salvar
     </button>
@@ -68,7 +64,7 @@ function UserProfile() {
 
   useEffect(() => {
     const actualUser = JSON.parse(localStorage.getItem('user'));
-    if(!actualUser) return window.location.assign('http://localhost:3000/login');
+    if (!actualUser) return window.location.assign('http://localhost:3000/login');
     setName(actualUser.data.name);
     setEMail(actualUser.data.email);
     setToken(actualUser.data.token);
@@ -76,8 +72,8 @@ function UserProfile() {
 
   const clickToSave = async () => {
     await putNameUser(name, email, token);
-    setChange(!change)
-    setMessage('Atualização concluída com sucesso')
+    setChange(!change);
+    setMessage('Atualização concluída com sucesso');
     setTimeout(() => setMessage(''), 6000);
   };
 

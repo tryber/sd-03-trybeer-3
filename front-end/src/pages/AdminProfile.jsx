@@ -1,21 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import SideMenuAdmin from '../components/SideMenuAdmin';
 
-const nameInput = (name) => {
-  return (
-    <div>
-      <h4>Nome: </h4><h4 data-testid="profile-name">{name}</h4>
-    </div>
-  );
-};
+const nameInput = (name) => (
+  <div>
+    <h4>Nome: </h4>
+    <h4 data-testid="profile-name">{name}</h4>
+  </div>
+);
 
-const emailInput = (email) => {
-  return (
-    <div>
-      <h4>Email: </h4><h4 data-testid="profile-email">{email}</h4>
-    </div>
-  );
-};
+const emailInput = (email) => (
+  <div>
+    <h4>Email: </h4>
+    <h4 data-testid="profile-email">{email}</h4>
+  </div>
+);
 
 function AdminProfile() {
   const [name, setName] = useState('');
@@ -23,7 +21,7 @@ function AdminProfile() {
 
   useEffect(() => {
     const actualUser = JSON.parse(localStorage.getItem('user'));
-    if(!actualUser) return window.location.assign('http://localhost:3000/login');
+    if (!actualUser) return window.location.assign('http://localhost:3000/login');
     setName(actualUser.data.name);
     setEMail(actualUser.data.email);
   }, []);
