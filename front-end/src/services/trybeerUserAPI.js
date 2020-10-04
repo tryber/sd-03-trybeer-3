@@ -8,6 +8,7 @@ export const foo = async (email, password) => {
     })
     .catch((err) => {
       const errorMessage = { error: true, err };
+      console.error(err);
       return errorMessage;
     });
   return data;

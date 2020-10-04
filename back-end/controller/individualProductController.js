@@ -12,7 +12,7 @@ const registerProduct = rescue(async (req, res) => {
 
   await individualProductService.registerProduct(saleId, productId, quantity);
 
-  res.status(200).json();
+  return res.status(200).json();
 });
 
 module.exports = {
