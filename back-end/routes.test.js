@@ -121,3 +121,31 @@ describe('Testando o Registro', () => {
      expect(res.statusCode).toEqual(200);
   })  
 })
+
+describe("Testando as vendas", () => {
+  test("Testando a pesquisa de vendas", async() => {
+    const res = await request(app)
+    .get('/sales')
+    expect(res.status).toEqual(200);
+  })
+  test("Testando a inserção de uma venda", async() => {
+    const res = await request(app)
+    .post('/sales')
+    .send({
+      "email": "bruno.batista@gmail.com", 
+      "total":"5",
+       "address":"rua 16",
+        "number":"2",
+         "date":"2020/05/01"
+      })
+    expect(res.status).toEqual(200);
+  })
+  test("Testando a alteração do status da venda", async() => {
+    const res = await request(app)
+    .put('/sales')
+    .send({
+     "id" : "1"
+      })
+    expect(res.status).toEqual(200);
+  })
+})
