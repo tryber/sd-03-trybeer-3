@@ -4,37 +4,44 @@ import { getLoginUser } from "../../services/trybeerUserAPI";
 import bigBangBeerLogo from "../../assets/images/bigBangBeerLogo.gif"
 import "./styles.css"
 
-const emailInput = (userEmail, setUserEMail) => {
+const emailInput = (userEmail, setUserEMail, focusEmail, setFocusEmail) => {
   return (
-    <div>
+    <div className={`${focusEmail ? "focus" : "txtb"}`}>
       <label htmlFor="email">
+        Email
         <input
             type="email"
             data-testid="email-input"
             id="email"
             onChange={(event) => setUserEMail(event.target.value)}
             value={userEmail}
-            placeholder="Email"
             className="email-input"
+            placeholder="email"
+            onFocus={() => setFocusEmail(true)}
+            onBlur={() => setFocusEmail(false)}
         />
+        <span></span>
       </label>
     </div>
   );
 };
 
-const passwordInput = (userPassword, setUserPassword) => {
+const passwordInput = (userPassword, setUserPassword, focusPassword, setFocusPassword) => {
   return (
-    <div>
+    <div className={`${focusPassword ? "focus" : "txtb"}`}>
       <label htmlFor="password">
+        Password
         <input
           type="password"
           data-testid="password-input"
-          id="password"
           onChange={(event) => setUserPassword(event.target.value)}
           value={userPassword}
-          placeholder="Password"
+          placeholder="senha"
           className="password-input"
+          onFocus={() => setFocusPassword(true)}
+          onBlur={() => setFocusPassword(false)}
         />
+        <span></span>
       </label>
     </div>
   );
@@ -43,7 +50,6 @@ const passwordInput = (userPassword, setUserPassword) => {
 const enterButton = (clickToEnter, isDisabled) => (
   <div>
     <button
-      type="button"
       className="signin-btn"
       data-testid="signin-btn"
       onClick={() => clickToEnter()}
@@ -70,6 +76,8 @@ const registerButton = (history) => (
 function Login() {
   const [userEmail, setUserEMail] = useState('');
   const [userPassword, setUserPassword] = useState('');
+  const [focusEmail, setFocusEmail] = useState(false);
+  const [focusPassword, setFocusPassword] = useState(false);
   const history = useHistory();
 
   const clickToEnter = async () => {
@@ -93,8 +101,8 @@ function Login() {
     <div className="login-form">
       <img src={bigBangBeerLogo} alt="bing bang beer logo" className="big-bang-beer-logo" />
       <h1>Login</h1>
-      {emailInput(userEmail, setUserEMail)}
-      {passwordInput(userPassword, setUserPassword)}
+      {emailInput(userEmail, setUserEMail, focusEmail, setFocusEmail)}
+      {passwordInput(userPassword, setUserPassword, focusPassword, setFocusPassword)}
       {enterButton(clickToEnter, isDisabled)}
       {registerButton(history)}
     </div>
