@@ -1,45 +1,23 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { getLoginUser } from "../../services/trybeerUserAPI";
-import bigBangBeerLogo from "../../assets/images/bigBangBeerLogo.gif"
-import "./styles.css"
+import bigBangBeerLogo from "../../assets/images/bigBangBeerLogo.gif";
+import "./styles.css";
 
-const emailInput = (userEmail, setUserEMail, focusEmail, setFocusEmail) => {
+const inputs = (userValue, setUserValue, focus, setFocus, testidClass, type, placeholder, write) => {
   return (
-    <div className={`${focusEmail ? "focus" : "txtb"}`}>
-      <label htmlFor="email">
-        Email
+    <div className={`${focus ? "focus" : "txtb"}`}>
+      <label htmlFor={type}>
+        {write}
         <input
-            type="email"
-            data-testid="email-input"
-            id="email"
-            onChange={(event) => setUserEMail(event.target.value)}
-            value={userEmail}
-            className="email-input"
-            placeholder="email"
-            onFocus={() => setFocusEmail(true)}
-            onBlur={() => setFocusEmail(false)}
-        />
-        <span></span>
-      </label>
-    </div>
-  );
-};
-
-const passwordInput = (userPassword, setUserPassword, focusPassword, setFocusPassword) => {
-  return (
-    <div className={`${focusPassword ? "focus" : "txtb"}`}>
-      <label htmlFor="password">
-        Password
-        <input
-          type="password"
-          data-testid="password-input"
-          onChange={(event) => setUserPassword(event.target.value)}
-          value={userPassword}
-          placeholder="senha"
-          className="password-input"
-          onFocus={() => setFocusPassword(true)}
-          onBlur={() => setFocusPassword(false)}
+          type={type}
+          data-testid={testidClass}
+          onChange={(event) => setUserValue(event.target.value)}
+          value={userValue}
+          placeholder={placeholder}
+          className={testidClass}
+          onFocus={() => setFocus(true)}
+          onBlur={() => setFocus(false)}
         />
         <span></span>
       </label>
@@ -50,7 +28,7 @@ const passwordInput = (userPassword, setUserPassword, focusPassword, setFocusPas
 const enterButton = (clickToEnter, isDisabled) => (
   <div>
     <button
-      className="signin-btn"
+      className={isDisabled() ? "signin-btn-disabled" : "signin-btn"}
       data-testid="signin-btn"
       onClick={() => clickToEnter()}
       disabled={isDisabled()}
@@ -105,10 +83,9 @@ function Login() {
   return (
     <div className="login-form">
       <img src={bigBangBeerLogo} alt="bing bang beer logo" className="big-bang-beer-logo" />
-      
-      {errorMessage? <h1 className="errorMessage">{errorMessage}</h1> : <h1>Login</h1>}
-      {emailInput(userEmail, setUserEMail, focusEmail, setFocusEmail)}
-      {passwordInput(userPassword, setUserPassword, focusPassword, setFocusPassword)}
+      {errorMessage ? <h1 className="errorMessage">{errorMessage}</h1> : <h1>Login</h1>}
+      {inputs(userEmail, setUserEMail, focusEmail, setFocusEmail, "email-input", "email", "email", "Email")}
+      {inputs(userPassword, setUserPassword, focusPassword, setFocusPassword, "password-input", "password", "senha", "Password")}
       {enterButton(clickToEnter, isDisabled)}
       {registerButton(history)}
     </div>
