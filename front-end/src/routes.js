@@ -11,7 +11,7 @@ import AdminOrders from './pages/AdminOrders/Index';
 import AdminOrdersDetails from './pages/AdminOrdersDetails/Index';
 import UserOrdersDetails from './pages/UserOrdersDetails/Index';
 
-const Routes = () => {
+function Routes() {
   return (
     <Router>
       <Switch>
@@ -29,6 +29,6 @@ const Routes = () => {
       </Switch>
     </Router>
   );
-}
+};
 
 export default Routes;
