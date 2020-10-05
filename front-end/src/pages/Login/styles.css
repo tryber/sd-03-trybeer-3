@@ -10,10 +10,12 @@
   padding: 50px 40px 10px 40px;
   border-radius: 10px;
   position: absolute;
-  top: 10%;
+  top: 5%;
 }
 
 .login-form h1 {
+  border-radius: 20px;
+  transition: .5s;
   text-align: center;
   margin-bottom: 60px;
 }
@@ -117,4 +119,13 @@
   background-color: #eba81a;
   outline: none;
   cursor: pointer;
+}
+
+.errorMessage {
+  text-align: center;
+  margin-bottom: 60px;
+  background-color: red;
+  border-radius: 20px;
+  transition: .5s;
+  z-index: 1;
 }

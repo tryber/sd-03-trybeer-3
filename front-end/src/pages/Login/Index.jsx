@@ -78,14 +78,19 @@ function Login() {
   const [userPassword, setUserPassword] = useState('');
   const [focusEmail, setFocusEmail] = useState(false);
   const [focusPassword, setFocusPassword] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(false);
   const history = useHistory();
 
   const clickToEnter = async () => {
-    const logedUser = await getLoginUser(userEmail, userPassword);
-    if (logedUser.error) {
-      return alert(logedUser.err);
+    const { err: { response: { data } }, error } = await getLoginUser(userEmail, userPassword);
+    if (error) {
+      return new Promise((resolve) => resolve(setErrorMessage(data)))
+        .then(() => setTimeout(() => {
+          setErrorMessage(false)
+        }, 2000)
+      );
     }
-    if (logedUser.data.role === 'administrator') {
+    if (data.role === 'administrator') {
       return history.push('/admin/orders')
     }
     history.push('/products');
@@ -100,7 +105,8 @@ function Login() {
   return (
     <div className="login-form">
       <img src={bigBangBeerLogo} alt="bing bang beer logo" className="big-bang-beer-logo" />
-      <h1>Login</h1>
+      
+      {errorMessage? <h1 className="errorMessage">{errorMessage}</h1> : <h1>Login</h1>}
       {emailInput(userEmail, setUserEMail, focusEmail, setFocusEmail)}
       {passwordInput(userPassword, setUserPassword, focusPassword, setFocusPassword)}
       {enterButton(clickToEnter, isDisabled)}
