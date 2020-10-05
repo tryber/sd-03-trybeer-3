@@ -8,14 +8,13 @@ const emailInput = (userEmail, setUserEMail) => {
   return (
     <div>
       <label htmlFor="email">
-        Email
         <input
             type="email"
             data-testid="email-input"
             id="email"
             onChange={(event) => setUserEMail(event.target.value)}
             value={userEmail}
-            placeholder="email"
+            placeholder="Email"
             className="email-input"
         />
       </label>
@@ -27,14 +26,13 @@ const passwordInput = (userPassword, setUserPassword) => {
   return (
     <div>
       <label htmlFor="password">
-        Password
         <input
           type="password"
           data-testid="password-input"
           id="password"
           onChange={(event) => setUserPassword(event.target.value)}
           value={userPassword}
-          placeholder="senha"
+          placeholder="Password"
           className="password-input"
         />
       </label>
@@ -92,8 +90,8 @@ function Login() {
   };
 
   return (
-    <div>
-      <img src={bigBangBeerLogo} alt="bing bang beer logo" className="imgTest" />
+    <div className="login-form">
+      <img src={bigBangBeerLogo} alt="bing bang beer logo" className="big-bang-beer-logo" />
       <h1>Login</h1>
       {emailInput(userEmail, setUserEMail)}
       {passwordInput(userPassword, setUserPassword)}

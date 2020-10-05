@@ -1,4 +1,22 @@
-.imgTest{
-  height: 300px;
+.big-bang-beer-logo {
+  width: 360px;
   border-radius: 100px;
+}
+
+.login-form {
+  width: 360px;
+  height: 480px;
+  background-color: white;
+  padding: 50px 40px 10px 40px;
+  border-radius: 10px;
+  position: absolute;
+  display: block;
+  justify-content: center;
+  top: 10%;
+  left: 5%;
+}
+
+.login-form h1 {
+  text-align: center;
+  margin-bottom: 60px;
 }
