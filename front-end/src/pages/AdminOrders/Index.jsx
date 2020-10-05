@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import { allSales } from '../services/trybeerUserAPI';
-import SideMenuAdmin from '../components/SideMenuAdmin';
+import { allSales } from "../../services/trybeerUserAPI";
+import SideMenuAdmin from '../../components/SideMenuAdmin';
 
 const productsCards = (purchase, clickToOrdersDetail) => (
   <div className="order-container-card">
@@ -30,10 +30,10 @@ const productsCards = (purchase, clickToOrdersDetail) => (
             {parseFloat(e.total).toFixed(2).replace('.', ',')}
           </p>
           <p
-            data-testid={ `${index}-order-status` }
-            className={ (e.status === 'Pendente') ? 'order-status-pendente' : 'order-status-pendente' }
+            data-testid={`${index}-order-status`}
+            className="order-status-pendente"
           >
-            {e.status}
+            {e.status}{console.log(e.status==='Entregue')}
           </p>
         </div>
       );

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import SideMenuAdmin from '../components/SideMenuAdmin';
+import SideMenuAdmin from '../../components/SideMenuAdmin';
 
 const nameInput = (name) => (
   <div>

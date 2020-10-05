@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { allProducts, allSales, allSalesProducts } from '../services/trybeerUserAPI';
-import TopMenu from '../components/TopMenu';
+import { allProducts, allSales, allSalesProducts } from "../../services/trybeerUserAPI";
+import TopMenu from '../../components/TopMenu';
 
 const productsCards = (purchase) => (
   <div className="checkout-container-card">
@@ -48,7 +48,7 @@ const itensList = async (actualUser, setPurchase, setTotal, id, setDay, setMonth
 
 const dateFunc = (time) => (`0${time}`).slice(-2);
 
-function UserCheckout() {
+function UserOrdersDetails() {
   const [purchase, setPurchase] = useState([]);
   const [total, setTotal] = useState(0);
   const [day, setDay] = useState('');
@@ -83,4 +83,4 @@ function UserCheckout() {
   );
 }
 
-export default UserCheckout;
+export default UserOrdersDetails;

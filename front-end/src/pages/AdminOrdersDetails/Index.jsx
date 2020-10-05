@@ -1,9 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+<<<<<<< HEAD:front-end/src/pages/AdminOrdersDetails.jsx
 import {
   allProducts, allSales, allSalesProducts, deliverySale,
 } from '../services/trybeerUserAPI';
 import TopMenu from '../components/TopMenu';
+=======
+import { allProducts, allSales, allSalesProducts, deliverySale } from "../../services/trybeerUserAPI";
+import SideMenuAdmin from '../../components/SideMenuAdmin';
+>>>>>>> todososreuisitos:front-end/src/pages/AdminOrdersDetails/Index.jsx
 
 const productsCards = (purchase) => (
   <div className="checkout-container-card">
@@ -12,6 +17,7 @@ const productsCards = (purchase) => (
       return (
         <div>
           <div className="products-card">
+<<<<<<< HEAD:front-end/src/pages/AdminOrdersDetails.jsx
             <p data-testid={ `${index}-product-qtd` }>{e.amount}</p>
             <p data-testid={ `${index}-product-name` }>{e.name}</p>
             <p data-testid={ `${index}-product-total-value` }>
@@ -19,6 +25,12 @@ const productsCards = (purchase) => (
               {totalProduct}
             </p>
             <p data-testid={ `${index}-product-price` }>{`(R$ ${parseFloat(e.price).toFixed(2).replace('.', ',')}un)`}</p>
+=======
+            <p data-testid={`${index}-product-qtd`}>{e.amount}</p>
+            <p data-testid={`${index}-product-name`}>{e.name}</p>
+            <p data-testid={`${index}-product-total-value`}>R$ {totalProduct}</p>
+            <p data-testid={`${index}-order-unit-price`}>{`(R$ ${parseFloat(e.price).toFixed(2).replace('.', ',')})`}</p>
+>>>>>>> todososreuisitos:front-end/src/pages/AdminOrdersDetails/Index.jsx
           </div>
         </div>
       );
@@ -30,11 +42,17 @@ const deliveredButton = (clickToDeliver, id) => (
   <div>
     <button
       type="button"
+<<<<<<< HEAD:front-end/src/pages/AdminOrdersDetails.jsx
       className="checkout-finish-btn"
       data-testid={ `${parseFloat(id) - 1}-order-number` }
       onClick={ () => clickToDeliver() }
+=======
+      className="mark-as-delivered-btn"
+      data-testid="mark-as-delivered-btn"
+      onClick={() => clickToDeliver()}
+>>>>>>> todososreuisitos:front-end/src/pages/AdminOrdersDetails/Index.jsx
     >
-      Marcar como Entregue
+      Marcar como entregue
     </button>
   </div>
 );
@@ -80,7 +98,8 @@ function AdminOrdersDetails() {
 
   return (
     <div>
-      {TopMenu('Detalhes de Pedido')}
+      {SideMenuAdmin()}
+      <h1>Detalhes de Pedido</h1>
       <div>
         <p data-testid="order-number" className="order-number">
           Pedido
