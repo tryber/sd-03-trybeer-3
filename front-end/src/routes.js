@@ -29,6 +29,6 @@ function Routes() {
       </Switch>
     </Router>
   );
-};
+}
 
 export default Routes;
