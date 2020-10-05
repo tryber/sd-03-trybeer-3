@@ -23,7 +23,7 @@ const productsCards = (purchase, clickToOrdersDetail) => (
             data-testid={`${index}-order-status`}
             className="order-status-pendente"
           >
-            {e.status}{console.log(e.status==='Entregue')}
+            {e.status}
           </p>
         </div>
       );

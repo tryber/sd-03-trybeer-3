@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { getLoginUser } from "../../services/trybeerUserAPI";
+import bigBangBeerLogo from "../../assets/images/bigBangBeerLogo.gif"
+import "./styles.css"
 
 const emailInput = (userEmail, setUserEMail) => {
   return (
@@ -91,6 +93,7 @@ function Login() {
 
   return (
     <div>
+      <img src={bigBangBeerLogo} alt="bing bang beer logo" className="imgTest" />
       <h1>Login</h1>
       {emailInput(userEmail, setUserEMail)}
       {passwordInput(userPassword, setUserPassword)}
