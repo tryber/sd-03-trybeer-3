@@ -73,9 +73,6 @@ const renderButtons = (id, e, purchase, setPurchase, setTotal) => {
 }
 
 const productsCards = (products, purchase, setPurchase, total, setTotal) => {
-  if(products.length === 0) {
-    return <Loading />
-  }
   return (
     <div className="products-container-card">
       {products.map((e) => (

@@ -49,10 +49,6 @@ function AdminOrders() {
     history.push(`/admin/orders/${id}`);
   };
 
-  if(purchase.length === 0) {
-    return <Loading />
-  }
-
   return (    
     <div>
       {SideMenuAdmin()}
