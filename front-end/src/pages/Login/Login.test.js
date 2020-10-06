@@ -1,7 +1,7 @@
 import React from 'react';
 import { fireEvent, render } from '@testing-library/react';
-import Login from './Login';
-import renderWithRouter from '../renderWithRouter';
+import Login from '../Login/Index';
+import renderWithRouter from '../../renderWithRouter';
 
 test('Testa o onClick no botão de registro na tela login', () => {
   const { getByText, history } = renderWithRouter(<Login />);

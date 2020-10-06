@@ -1,9 +1,6 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import { fireEvent, getByTestId, render} from '@testing-library/react';
-import AdminOrders from './AdminOrders';
-import renderWithRouter from '../renderWithRouter';
-import AdminOrdersDetails from './AdminOrdersDetails';
+import AdminOrders from '../AdminOrders/Index';
+import renderWithRouter from '../../renderWithRouter';
 
 describe('Pagina de controle de pedidos, usuário administrador', () => {
   test('Testando o componente renderiza corretamente', () => {
