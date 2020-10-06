@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { allSales } from "../../services/trybeerUserAPI";
 import SideMenuAdmin from '../../components/SideMenuAdmin';
+import Loading from '../../components/Loading/Index';
 
 const productsCards = (purchase, clickToOrdersDetail) => (
   <div className="order-container-card">
@@ -33,7 +34,7 @@ const productsCards = (purchase, clickToOrdersDetail) => (
 
 const itensList = async (setPurchase) => {
   const listSales = await allSales();
-  setPurchase(listSales.data);
+  return setPurchase(listSales.data);
 };
 
 function AdminOrders() {
@@ -50,7 +51,11 @@ function AdminOrders() {
     history.push(`/admin/orders/${id}`);
   };
 
-  return (
+  if(purchase.length === 0) {
+    return <Loading />
+  }
+
+  return (    
     <div>
       {SideMenuAdmin()}
       <h2>Pedidos</h2>

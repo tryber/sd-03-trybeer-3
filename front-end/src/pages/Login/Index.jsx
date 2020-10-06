@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 import { getLoginUser } from "../../services/trybeerUserAPI";
 import bigBangBeerLogo from "../../assets/images/bigBangBeerLogo.gif";
 import "./styles.css";
+import Loading from '../../components/Loading/Index';
 
 const inputs = (userValue, setUserValue, focus, setFocus, testidClass, type, placeholder, write) => {
   return (
