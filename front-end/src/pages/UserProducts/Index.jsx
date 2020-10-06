@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { allProducts } from "../../services/trybeerUserAPI";
-import Loading from '../../components/Loading/Index';
 import TopMenu from '../../components/TopMenu/Index';
 import "./styles.css";
 

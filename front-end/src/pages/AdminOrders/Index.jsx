@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { allSales } from "../../services/trybeerUserAPI";
 import SideMenuAdmin from '../../components/SideMenuAdmin';
-import Loading from '../../components/Loading/Index';
 
 const productsCards = (purchase, clickToOrdersDetail) => (
   <div className="order-container-card">
