@@ -1,46 +1,34 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { getLoginUser } from "../../services/trybeerUserAPI";
+import bigBangBeerLogo from "../../assets/images/bigBangBeerLogo.gif";
+import "./styles.css";
 
-const emailInput = (userEmail, setUserEMail) => (
-  <div>
-    <label htmlFor="email">
-      Email
-      <input
-        type="email"
-        data-testid="email-input"
-        id="email"
-        onChange={ (event) => setUserEMail(event.target.value) }
-        value={ userEmail }
-        placeholder="email"
-        className="email-input"
-      />
-    </label>
-  </div>
-);
-
-const passwordInput = (userPassword, setUserPassword) => (
-  <div>
-    <label htmlFor="password">
-      Password
-      <input
-        type="password"
-        data-testid="password-input"
-        id="password"
-        onChange={ (event) => setUserPassword(event.target.value) }
-        value={ userPassword }
-        placeholder="senha"
-        className="password-input"
-      />
-    </label>
-  </div>
-);
+const inputs = (userValue, setUserValue, focus, setFocus, testidClass, type, placeholder, write) => {
+  return (
+    <div className={`${focus ? "focus" : "txtb"}`}>
+      <label htmlFor={type}>
+        {write}
+        <input
+          type={type}
+          data-testid={testidClass}
+          onChange={(event) => setUserValue(event.target.value)}
+          value={userValue}
+          placeholder={placeholder}
+          className={testidClass}
+          onFocus={() => setFocus(true)}
+          onBlur={() => setFocus(false)}
+        />
+        <span></span>
+      </label>
+    </div>
+  );
+};
 
 const enterButton = (clickToEnter, isDisabled) => (
   <div>
     <button
-      type="button"
-      className="signin-btn"
+      className={isDisabled() ? "signin-btn-disabled" : "signin-btn"}
       data-testid="signin-btn"
       onClick={ () => clickToEnter() }
       disabled={ isDisabled() }
@@ -66,12 +54,19 @@ const registerButton = (history) => (
 function Login() {
   const [userEmail, setUserEMail] = useState('');
   const [userPassword, setUserPassword] = useState('');
+  const [focusEmail, setFocusEmail] = useState(false);
+  const [focusPassword, setFocusPassword] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(false);
   const history = useHistory();
 
   const clickToEnter = async () => {
     const logedUser = await getLoginUser(userEmail, userPassword);
     if (logedUser.error) {
-      return alert(logedUser.err);
+      return new Promise((resolve) => resolve(setErrorMessage(logedUser.err.response.data)))
+        .then(() => setTimeout(() => {
+          setErrorMessage(false)
+        }, 3000)
+      );
     }
     if (logedUser.data.role === 'administrator') {
       return history.push('/admin/orders');
@@ -86,10 +81,12 @@ function Login() {
   };
 
   return (
-    <div>
-      <h1>Login</h1>
-      {emailInput(userEmail, setUserEMail)}
-      {passwordInput(userPassword, setUserPassword)}
+    <div className="login-form">
+      <img src={bigBangBeerLogo} alt="bing bang beer logo" className="big-bang-beer-logo" />
+      {<h1>Login</h1>}
+      {errorMessage ? <h1 className="errorMessage">{errorMessage}</h1> : null}
+      {inputs(userEmail, setUserEMail, focusEmail, setFocusEmail, "email-input", "email", "email", "Email")}
+      {inputs(userPassword, setUserPassword, focusPassword, setFocusPassword, "password-input", "password", "senha", "Password")}
       {enterButton(clickToEnter, isDisabled)}
       {registerButton(history)}
     </div>

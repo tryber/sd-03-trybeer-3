@@ -2,12 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { allSales } from "../../services/trybeerUserAPI";
 import SideMenuAdmin from '../../components/SideMenuAdmin';
+import "./styles.css";
 
 const productsCards = (purchase, clickToOrdersDetail) => (
   <div className="order-container-card">
     {purchase.map((e, index) => {
-      const month = new Date(e.date).getMonth() + 1;
-      const day = new Date(e.date).getUTCDate();
       return (
         <div
           key={ e.id }
@@ -33,7 +32,7 @@ const productsCards = (purchase, clickToOrdersDetail) => (
             data-testid={`${index}-order-status`}
             className="order-status-pendente"
           >
-            {e.status}{console.log(e.status==='Entregue')}
+            {e.status}
           </p>
         </div>
       );
@@ -43,7 +42,7 @@ const productsCards = (purchase, clickToOrdersDetail) => (
 
 const itensList = async (setPurchase) => {
   const listSales = await allSales();
-  setPurchase(listSales.data);
+  return setPurchase(listSales.data);
 };
 
 function AdminOrders() {
@@ -63,8 +62,10 @@ function AdminOrders() {
   return (
     <div>
       {SideMenuAdmin()}
-      <h2>Pedidos</h2>
-      {productsCards(purchase, clickToOrdersDetail)}
+      <div className="container-order-container-card">
+        <h2>Pedidos</h2>
+        {productsCards(purchase, clickToOrdersDetail)}
+      </div>
     </div>
   );
 }
