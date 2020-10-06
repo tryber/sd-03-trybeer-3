@@ -1,7 +1,7 @@
 const axios = require('axios');
 
 export const foo = async (email, password) => {
-  const data = await axios.post('http://localhost:3001/login', { email, password })
+  const user = await axios.post('http://localhost:3001/login', { email, password })
     .then(({ data }) => {
       localStorage.setItem('user', JSON.stringify(data));
       return data.role;
@@ -10,7 +10,7 @@ export const foo = async (email, password) => {
       const errorMessage = { error: true, err };
       return errorMessage;
     });
-  return data;
+  return user;
 };
 
 export { foo as getLoginUser };
