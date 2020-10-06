@@ -1,6 +1,7 @@
 const request = require('supertest');
 const app = require('./index');
 const connect = require('./models/connection');
+const { deleteProductSales, deleteUser } = require('./helpers/functions');
 
 afterEach(async () => {
   await connect();
@@ -41,9 +42,7 @@ describe('Testando produtos indiviudais', () => {
     expect(res.statusCode).toEqual(200);
   });
   test('Testando a inserção de produtos para uma venda', async () => {
-    const connection = await connect().then((db) => db.getTable('sales_products'));
-   const query = connection.delete().where('sale_id = 1')
-   query.execute();
+    deleteProductSales();
     const res = await request(app)
       .post('/individualProduct')
       .send({
@@ -101,13 +100,7 @@ describe('Testando Perfil', () => {
 
 describe('Testando o Registro', () => {
   test('Registrando um usuário', async () => {
-    await connect()
-      .then((db) => {
-        db.getTable('users')
-          .delete()
-          .where('email = "cpereiramt@gmail.com"')
-          .execute();
-      });
+    deleteUser();
     const res = await request(app)
       .post('/register')
       .send({ name: 'clayton pereira',
