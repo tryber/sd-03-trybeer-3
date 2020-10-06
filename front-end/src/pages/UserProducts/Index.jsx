@@ -55,10 +55,10 @@ const renderButtons = (id, e, purchase, setPurchase, setTotal) => {
       >
         -
       </button>
-      <p
-        data-testid={`${(id -1)}-product-qtd`}
+      <span
+        data-testid={`${(id -1)}-spanroduct-qtd`}
         className="product-qtd"
-      >{(product.amount) ? product.amount : 0}</p>
+      > {(product.amount) ? product.amount : 0} </span>
       <button
         onClick={() => increment(product, purchase, setPurchase, setTotal)}
         type="button"
@@ -80,8 +80,8 @@ const productsCards = (products, purchase, setPurchase, total, setTotal) => {
             <img data-testid={`${(e.id -1)}-product-img`} src={e.image} width="100px" alt={e.name} />
             <p data-testid={`${(e.id -1)}-product-name`}>{e.name}</p>
             <p data-testid={`${(e.id -1)}-product-price`}>R$ {(e.price).toFixed(2).replace('.', ',')}</p>
+            {renderButtons(e.id, e, purchase, setPurchase, total, setTotal)}
           </div>
-          {renderButtons(e.id, e, purchase, setPurchase, total, setTotal)}
         </div>
       ))}
     </div>
@@ -92,7 +92,7 @@ const cartButton = (total, clickToCart, isDisabled) => (
   <div>
     <button
       type="button"
-      className="checkout-bottom-btn"
+      className={isDisabled() ? "notAble" : "checkout-bottom-btn"}
       data-testid="checkout-bottom-btn"
       onClick={() => clickToCart()}
       disabled={isDisabled()}
@@ -140,7 +140,7 @@ function UserProducts() {
     <div>
       {TopMenu('TryBeer')}
       {productsCards(products, purchase, setPurchase, setTotal)}
-      {cartButton(total , clickToCart, isDisabled)}
+      {cartButton(total, clickToCart, isDisabled)}
     </div>
   );
 }
