@@ -8,7 +8,9 @@ const singupUser = async (name, email, password, role) => {
   }
 
   await usersModel.singupUser(name, email, password, role);
+
   const findUser = await usersModel.singinEmail(email);
+
   const { password: ussersecret, ...userWithoutPassword } = findUser;
 
   return userWithoutPassword;

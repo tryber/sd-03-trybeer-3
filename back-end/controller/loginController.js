@@ -11,13 +11,15 @@ const singinEmail = rescue(async (req, res, next) => {
   if (userValue.error) {
     return next(userValue);
   }
-  const { password: usersecret, ...user } = userValue;
+
   const jwtConfig = {
     expiresIn: '20d',
     algorithm: 'HS256',
   };
-  const token = jwt.sign({ data: user }, secret, jwtConfig);
-  const userWithToken = { ...user, token };
+  const token = jwt.sign(userValue, secret, jwtConfig);
+
+  const userWithToken = { ...userValue, token };
+
   res.status(200).json(userWithToken);
 });
 
