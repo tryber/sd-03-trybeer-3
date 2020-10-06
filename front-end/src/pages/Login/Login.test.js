@@ -1,6 +1,6 @@
 import React from 'react';
-import { fireEvent, render } from '@testing-library/react';
-import Login from '../Login/Index';
+import { fireEvent } from '@testing-library/react';
+import Login from './Index';
 import renderWithRouter from '../../renderWithRouter';
 
 test('Testa o onClick no botão de registro na tela login', () => {

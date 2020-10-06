@@ -1,5 +1,5 @@
 import React from 'react';
-import AdminOrders from '../AdminOrders/Index';
+import AdminOrders from './Index';
 import renderWithRouter from '../../renderWithRouter';
 
 describe('Pagina de controle de pedidos, usuário administrador', () => {
