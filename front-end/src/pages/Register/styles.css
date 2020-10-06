@@ -5,12 +5,15 @@
 
 .login-form {
   width: 360px;
-  height: 680px;
+  height: 780px;
   background-color: white;
   padding: 50px 40px 10px 40px;
   border-radius: 10px;
   position: absolute;
   top: 5%;
+  padding: 0px 40px;
+  border-radius: 10px;
+  box-shadow: 0px 10px 100px #111;
 }
 
 .login-form h1 {
@@ -94,38 +97,61 @@
   transition: .5s;
 }
 
-.signin-btn {
+.signup-btn {
   display: block;
-  width: 100%;
-  height: 50px;
-  border-radius: 0.8rem;
-  border: none;
-  background-size: 200%;
-  background-color: #eba81a;
-  outline: none;
-  cursor: pointer;
+	width: 100%;
+	height: 50px;
+	border-radius: 25px;
+	outline: none;
+	border: none;
+	background-image: linear-gradient(to right, #32be8f, #38d39f, #476A6F);
+	background-size: 200%;
+	font-size: 1.2rem;
+	color: #fff;
+	font-family: 'Poppins', sans-serif;
+	text-transform: uppercase;
+	margin: 1rem 0;
+	cursor: pointer;
+  transition: .5s;
 }
 
-.no-account-btn {
-  margin-top: 10px;
-  border-radius: 0.8rem;
-  margin-right: auto;
-  margin-left: auto;
+.signup-btn:hover {
+  background-position: right;
+}
+
+.errorMessageRegister {
+  background-color: white;
+  color: red;
+  font-size: 0.75em;
+  display: absolute;
+}
+
+.emailExists {
+  position: absolute;
+  background: red;
+	width: 64%;
+	height: 50px;
+  padding: 0px 40px;
   font: 350 2.0rem Archivo;
   display: block;
-  width: 60%;
-  height: 35px;
   border: none;
-  background-color: #eba81a;
-  outline: none;
-  cursor: pointer;
-}
-
-.errorMessage {
+  box-shadow: 0px 10px 100px #111;
+  z-index: 1;
+  color: #fff;
+  border-radius: 20px;
   text-align: center;
   margin-bottom: 60px;
-  background-color: red;
-  border-radius: 20px;
+  animation: MoveUpDown 1.5s infinite alternate;
   transition: .5s;
-  z-index: 1;
+}
+
+@keyframes MoveUpDown {
+  0%{
+    bottom: 250px;
+    opacity: 0;
+  }
+  100% {
+    bottom: 290px;
+    opacity: 1;
+  }
 }

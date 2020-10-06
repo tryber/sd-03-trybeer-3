@@ -62,11 +62,10 @@ function Login() {
   const clickToEnter = async () => {
     const logedUser = await getLoginUser(userEmail, userPassword);
     if (logedUser.error) {
-      console.log(logedUser)
       return new Promise((resolve) => resolve(setErrorMessage(logedUser.err.response.data)))
         .then(() => setTimeout(() => {
           setErrorMessage(false)
-        }, 2000)
+        }, 3000)
       );
     }
     if (logedUser.data.role === 'administrator') {
@@ -84,7 +83,8 @@ function Login() {
   return (
     <div className="login-form">
       <img src={bigBangBeerLogo} alt="bing bang beer logo" className="big-bang-beer-logo" />
-      {errorMessage ? <h1 className="errorMessage">{errorMessage}</h1> : <h1>Login</h1>}
+      {<h1>Login</h1>}
+      {errorMessage ? <h1 className="errorMessage">{errorMessage}</h1> : null}
       {inputs(userEmail, setUserEMail, focusEmail, setFocusEmail, "email-input", "email", "email", "Email")}
       {inputs(userPassword, setUserPassword, focusPassword, setFocusPassword, "password-input", "password", "senha", "Password")}
       {enterButton(clickToEnter, isDisabled)}

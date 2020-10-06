@@ -1,59 +1,50 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { postNewUser } from "../../services/trybeerUserAPI";
+import bigBangBeerLogo from "../../assets/images/bigBangBeerLogo.gif";
+import "./styles.css";
 
-const nameInput = (name, setName) => {
-  return (
-    <div>
-      <label htmlFor="name">
-        Nome
-        <input
-            type="text"
-            data-testid="signup-name"
-            id="name"
-            onChange={(event) => setName(event.target.value)}
-            value={name}
-            placeholder="nome"
-            className="signup-name"
-        />
-      </label>
-    </div>
-  );
-};  
 
-const emailInput = (email, setEMail) => {
-  return (
-    <div>
-      <label htmlFor="email">
-        Email
-        <input
-            type="email"
-            data-testid="signup-email"
-            id="email"
-            onChange={(event) => setEMail(event.target.value)}
-            value={email}
-            placeholder="email"
-            className="signup-email"
-        />
-      </label>
-    </div>
-  );
-};
+const formErrors = (testidClass, newUserValue) => {
+  let validReturn;
+  const emailTest = /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i;
+  switch(testidClass){
+    case "signup-name":
+      validReturn =
+        (newUserValue.length < 11 && newUserValue.length > 0)
+          ||
+        (!/^[a-zA-Z_ ]+$/.test(newUserValue) && newUserValue.length > 0)
+          ? "Invalid User" : "";
+    break;
+    case "signup-email":
+      validReturn = !emailTest.test(newUserValue) && newUserValue.length > 0 ? "Invalid email" : "";
+    break;
+    case "signup-password":
+      validReturn = newUserValue.length < 5 && newUserValue.length > 0 ? "Invalid email" : "";
+    break;
+    default:
+    return;
+  }
+  return validReturn;
+}
 
-const passwordInput = (password, setPassword) => {
+const inputs = (newUserValue, setNewUserValue, focus, setFocus, testidClass, type, placeholder, write) => {
   return (
-    <div>
-      <label htmlFor="password">
-        Password
+    <div className={`${focus ? "focus" : "txtb"}`}>
+      <label htmlFor={type}>
+        {write}
+        <div className="errorMessageRegister">{formErrors(testidClass, newUserValue)}</div>
         <input
-          type="password"
-          data-testid="signup-password"
-          id="password"
-          onChange={(event) => setPassword(event.target.value)}
-          value={password}
-          placeholder="senha"
-          className="signup-password"
+          type={type}
+          data-testid={testidClass}
+          onChange={(event) => setNewUserValue(event.target.value)}
+          value={newUserValue}
+          placeholder={placeholder}
+          className={testidClass}
+          onFocus={() => setFocus(true)}
+          onBlur={() => setFocus(false)}
         />
+        <span></span>
       </label>
     </div>
   );
@@ -73,6 +64,7 @@ const roleInput = (role, setRole) => {
           className="signup-seller"
         />
         Quero Vender
+        <span className="checkmark"></span>
       </label>
     </div>
   );
@@ -98,13 +90,21 @@ function Register() {
   const [password, setPassword] = useState('');
   const [role, setRole] = useState('client');
   const [alertEmailExist, setAlertEmailExist] = useState(false);
+  const [focusName, setFocusName] = useState(false);
+  const [focusEmail, setFocusEmail] = useState(false);
+  const [focusPassword, setFocusPassword] = useState(false);
+
   const history = useHistory();
 
   const clickToEnter = async () => {
     const newUser = await postNewUser(name, email, password, role);
 
     if (newUser.error) {
-      return setAlertEmailExist(true);
+      return new Promise((resolve) => resolve(setAlertEmailExist(newUser.err.response.data)))
+        .then(() => setTimeout(() => {
+          setAlertEmailExist(false)
+        }, 3000)
+      );
     }
     if (role === 'administrator') {
       return history.push('/admin/orders')
@@ -119,12 +119,13 @@ function Register() {
   };
 
   return (
-    <div>
+    <div className="login-form">
+      <img src={bigBangBeerLogo} alt="bing bang beer logo" className="big-bang-beer-logo" />
       <h1>Registro</h1>
-      {alertEmailExist && <p>E-mail already in database.</p>}
-      {nameInput(name, setName)}
-      {emailInput(email, setEMail)}
-      {passwordInput(password, setPassword)}
+      {alertEmailExist && <p className="emailExists">E-mail already in database.</p>}
+      {inputs(name, setName, focusName, setFocusName, "signup-name", "text", "nome", "Nome")}
+      {inputs(email, setEMail, focusEmail, setFocusEmail, "signup-email", "email", "email", "Email")}
+      {inputs(password, setPassword, focusPassword, setFocusPassword, "signup-password", "password", "senha", "Password")}
       {roleInput(role, setRole)}
       {registerButton(clickToEnter, isDisabled)}
     </div>

@@ -13,7 +13,7 @@ html , body {
 }
 
 body {
-  background: var(--color-background);
+  background-color: #476A6F;
 }
 
 #root{
