@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import TrybeerContext from './context';
-import { allProducts, allSales, allSalesProducts } from '../../services/trybeerUserAPI';
+import {
+  allProducts, allSales, allSalesProducts, allSalesUser, allSalesProductsUser,
+} from '../../services/trybeerUserAPI';
 
 const RecipeAppProvider = ({ children }) => {
   const [user, setUser] = useState([]);
@@ -11,27 +13,31 @@ const RecipeAppProvider = ({ children }) => {
   const [products, setProducts] = useState([]);
 
   const fetchSaleAdmin = async () => {
-    const listSales = await allSales();
-    const listSalesProducts = await allSalesProducts();
+    const listSales = await allSales() || [];
+    const listSalesProducts = await allSalesProducts() || [];
     setSales(listSales.data);
     setSalesProduct(listSalesProducts.data);
   };
 
-  const fetchSaleUser = async (info) => {
-    const listSales = await allSales(info);
-    const listSalesProducts = await allSalesProducts();
+  const fetchSaleUser = async () => {
+    const listSales = await allSalesUser(user.data.id);
     setSales(listSales.data);
+    const arrIds = listSales.data.reduce((acc, elem) => {
+      acc = [...acc, elem.id];
+      return acc;
+    }, []);
+    const listSalesProducts = await allSalesProductsUser(arrIds) || [];
     setSalesProduct(listSalesProducts.data);
   };
 
-  const fetchData = async (info) => {
+  const fetchData = async () => {
     const listProducts = await allProducts();
     setProducts(listProducts.data);
-    if (info.role === 'administrator') {
+    if (user.data.role === 'administrator') {
       await fetchSaleAdmin(setSales, setSalesProduct);
       return;
     }
-    await fetchSaleUser(info, setSales, setSalesProduct);
+    await fetchSaleUser( setSales, setSalesProduct);
   };
 
   const context = {

@@ -15,7 +15,16 @@ const registerProduct = rescue(async (req, res) => {
   res.status(200).json();
 });
 
+const userProducts = rescue(async (_req, res) => {
+  const { arrIds } = req.body;
+
+  const salesProducts = await individualProductService.userProducts(arrIds);
+
+  res.status(200).json(salesProducts);
+});
+
 module.exports = {
   allSalesProduct,
   registerProduct,
+  userProducts,
 };

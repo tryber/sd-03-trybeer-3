@@ -111,3 +111,21 @@ export const changeToDelivered = async (id) => {
 };
 
 export { changeToDelivered as deliverySale };
+
+export const callSalesProductsUser = async (userId) => {
+  const data = await axios.post('http://localhost:3001/individualProduct/user', {
+    userId,
+  })
+    .then((response) => response);
+  return data;
+};
+
+export { callSalesProductsUser as allSalesProductsUser };
+
+export const callSalesUser = async (userId) => {
+  const data = await axios.post('http://localhost:3001/sales/user', { userId })
+    .then((response) => response);
+  return data;
+};
+
+export { callSalesUser as allSalesUser };

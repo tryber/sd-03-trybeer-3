@@ -32,8 +32,15 @@ const changeStatus = async (id) => {
   return 'ok';
 };
 
+const userSales = async (userId) => {
+  const sales = await salesModel.userSales(userId);
+
+  return sales;
+};
+
 module.exports = {
   allSales,
   finishSales,
   changeStatus,
+  userSales,
 };

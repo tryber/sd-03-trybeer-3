@@ -67,10 +67,53 @@ const changeStatus = async (id, status) => (
       .bind('id', id)
       .execute()));
 
+const userProducts = async (id) => connect()
+  .then((db) => db
+    .getTable('sales_products')
+    .select(['sale_id', 'product_id', 'quantity'])
+    .where('sale_id = :sale_id')
+    .bind('sale_id', id)
+    .execute())
+  .then((results) => results.fetchAll())
+  .then((results) => results.map(([saleId, productId, quantity]) => (
+    { saleId, productId, quantity })));
+
+const userSales = async (idUser) => connect()
+.then((db) => db
+  .getTable('sales')
+  .select([
+    'id',
+    'user_id',
+    'total_price',
+    'delivery_address',
+    'delivery_number',
+    'sale_date',
+    'status',
+  ])
+  .where('user_id = :user_id')
+  .bind('user_id', idUser)
+  .execute())
+.then((results) => results.fetchAll())
+.then((results) => results.map((
+  [id, userId, totalPrice, deliveryAddress, deliveryNumber, saleDate, status],
+) => (
+  {
+    id,
+    userId,
+    total: totalPrice,
+    address: deliveryAddress,
+    number: deliveryNumber,
+    date: saleDate,
+    status,
+  }
+)));
+
 module.exports = {
   allSales,
   finishSales,
   registerProduct,
   allSalesProduct,
   changeStatus,
+  userSales,
+  userProducts,
 };
