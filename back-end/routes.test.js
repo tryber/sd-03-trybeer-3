@@ -42,8 +42,8 @@ describe('Testando produtos indiviudais', () => {
   });
   test('Testando a inserção de produtos para uma venda', async () => {
     const connection = await connect().then((db) => db.getTable('sales_products'));
-    connection.delete().where('sale_id = 1')
-      .execute();
+   const query = connection.delete().where('sale_id = 1')
+   query.execute();
     const res = await request(app)
       .post('/individualProduct')
       .send({
