@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import SideMenu from './SideMenu';
-import cardapio from '../assets/images/cardapio.svg';
+import cardapio from '../../assets/images/cardapio.svg';
+import SideMenu from '../SideMenu/Index';
 
 function TopMenu(title) {
   const [sideMenuState, setSideMenuState] = useState(false);

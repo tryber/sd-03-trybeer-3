@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { allProducts } from "../../services/trybeerUserAPI";
-import TopMenu from '../../components/TopMenu';
+import Loading from '../../components/Loading/Index';
+import TopMenu from '../../components/TopMenu/Index';
+import "./styles.css";
 
 const decrement = async (product, purchase, setPurchase, setTotal) => {
   const { id, name, image, price, amount } = product;
@@ -70,20 +72,25 @@ const renderButtons = (id, e, purchase, setPurchase, setTotal) => {
   );
 }
 
-const productsCards = (products, purchase, setPurchase, total, setTotal) => (
-  <div className="products-container-card">
-    {products.map((e) => (
-      <div key={e.id - 1}>
-        <div className="products-card">
-          <img data-testid={`${(e.id -1)}-product-img`} src={e.image} width="100px" alt={e.name} />
-          <p data-testid={`${(e.id -1)}-product-name`}>{e.name}</p>
-          <p data-testid={`${(e.id -1)}-product-price`}>R$ {(e.price).toFixed(2).replace('.', ',')}</p>
+const productsCards = (products, purchase, setPurchase, total, setTotal) => {
+  if(products.length === 0) {
+    return <Loading />
+  }
+  return (
+    <div className="products-container-card">
+      {products.map((e) => (
+        <div key={e.id - 1}>
+          <div className="products-card">
+            <img data-testid={`${(e.id -1)}-product-img`} src={e.image} width="100px" alt={e.name} />
+            <p data-testid={`${(e.id -1)}-product-name`}>{e.name}</p>
+            <p data-testid={`${(e.id -1)}-product-price`}>R$ {(e.price).toFixed(2).replace('.', ',')}</p>
+          </div>
+          {renderButtons(e.id, e, purchase, setPurchase, total, setTotal)}
         </div>
-        {renderButtons(e.id, e, purchase, setPurchase, total, setTotal)}
-      </div>
-    ))}
-  </div>
-);
+      ))}
+    </div>
+  )
+};
 
 const cartButton = (total, clickToCart, isDisabled) => (
   <div>

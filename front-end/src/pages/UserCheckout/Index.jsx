@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { createSale, saveSaleProducts } from "../../services/trybeerUserAPI";
-import TopMenu from '../../components/TopMenu';
+import TopMenu from '../../components/TopMenu/Index';
 
 const addressInput = (address, setAddress) => {
   return (

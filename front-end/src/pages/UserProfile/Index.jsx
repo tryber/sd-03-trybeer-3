@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { putNameUser } from "../../services/trybeerUserAPI";
-import TopMenu from '../../components/TopMenu';
+import TopMenu from '../../components/TopMenu/Index';
 
 const dealWithChange = (setName, setChange, value) => {
   setName(value);
