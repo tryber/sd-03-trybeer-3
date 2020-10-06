@@ -2,9 +2,9 @@ const axios = require('axios');
 
 export const foo = async (email, password) => {
   const data = await axios.post('http://localhost:3001/login', { email, password })
-    .then((response) => {
-      localStorage.setItem('user', JSON.stringify(response));
-      return response;
+    .then(({ data }) => {
+      localStorage.setItem('user', JSON.stringify(data));
+      return data.role;
     })
     .catch((err) => {
       const errorMessage = { error: true, err };

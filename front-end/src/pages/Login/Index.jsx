@@ -62,13 +62,13 @@ function Login() {
   const clickToEnter = async () => {
     const logedUser = await getLoginUser(userEmail, userPassword);
     if (logedUser.error) {
-      return new Promise((resolve) => resolve(setErrorMessage(logedUser.err.response.data)))
+      return new Promise((resolve) => resolve(setErrorMessage(logedUser.err.response)))
         .then(() => setTimeout(() => {
           setErrorMessage(false)
         }, 3000)
       );
     }
-    if (logedUser.data.role === 'administrator') {
+    if (logedUser === 'administrator') {
       return history.push('/admin/orders')
     }
     history.push('/products');
