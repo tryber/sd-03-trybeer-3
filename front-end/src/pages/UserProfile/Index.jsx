@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { putNameUser } from "../../services/trybeerUserAPI";
 import TopMenu from '../../components/TopMenu/Index';
+import "./styles.css";
 
 const dealWithChange = (setName, setChange, value) => {
   setName(value);
@@ -91,10 +92,12 @@ function UserProfile() {
   return (
     <div>
       {TopMenu('Meu perfil')}
-      <p>{message}</p>
-      {nameInput(name, setName, setChange)}
-      {emailInput(email)}
-      {saveButton(clickToSave, isDisabled)}
+      <div className="profile-container">
+        <p>{message}</p>
+        {nameInput(name, setName, setChange)}
+        {emailInput(email)}
+        {saveButton(clickToSave, isDisabled)}
+      </div>
     </div>
   );
 }

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { createSale, saveSaleProducts } from "../../services/trybeerUserAPI";
 import TopMenu from '../../components/TopMenu/Index';
+import "./styles.css";
 
 const addressInput = (address, setAddress) => {
   return (
@@ -89,10 +90,10 @@ const productsCards = (purchase, setPurchase, setTotal, setMessage) => (
             <p data-testid={`${index}-product-unit-price`}>
               {`(R$ ${parseFloat(e.price).toFixed(2).replace('.', ',')} un)`}
             </p>
+            {renderButtons(
+              index, e.id, purchase, setPurchase, setTotal, setMessage,
+            )}
           </div>
-          {renderButtons(
-            index, e.id, purchase, setPurchase, setTotal, setMessage,
-          )}
         </div>
       );
     })}
@@ -103,7 +104,7 @@ const checkoutButton = (clickToProducts, isDisabled) => (
   <div>
     <button
       type="button"
-      className="checkout-finish-btn"
+      className={isDisabled() ? "disabled-checkout-finish-btn" : "checkout-finish-btn"}
       data-testid="checkout-finish-btn"
       onClick={() => clickToProducts()}
       disabled={isDisabled()}
@@ -168,7 +169,7 @@ function UserCheckout() {
   };
 
   return (
-    <div>
+    <div className="checkout-container">
       {TopMenu('Finalizar Pedido')}
       <h3>{message}</h3>
       {productsCards(purchase, setPurchase, setTotal, setMessage)}

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { allSales } from "../../services/trybeerUserAPI";
 import SideMenuAdmin from '../../components/SideMenuAdmin';
+import "./styles.css";
 
 const productsCards = (purchase, clickToOrdersDetail) => (
   <div className="order-container-card">
@@ -48,11 +49,13 @@ function AdminOrders() {
     history.push(`/admin/orders/${id}`);
   };
 
-  return (    
+  return (
     <div>
       {SideMenuAdmin()}
-      <h2>Pedidos</h2>
-      {productsCards(purchase, clickToOrdersDetail)}
+      <div className="container-order-container-card">
+        <h2>Pedidos</h2>
+        {productsCards(purchase, clickToOrdersDetail)}
+      </div>
     </div>
   );
 }
