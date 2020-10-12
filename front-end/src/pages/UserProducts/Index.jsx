@@ -51,7 +51,6 @@ const renderButtons = (id, e, purchase, setPurchase, setTotal) => {
         onClick={() => decrement(product, purchase, setPurchase, setTotal)}
         type="button"
         data-testid={`${(id -1)}-product-minus`}
-        className="product-minus"
       >
         -
       </button>
@@ -63,7 +62,6 @@ const renderButtons = (id, e, purchase, setPurchase, setTotal) => {
         onClick={() => increment(product, purchase, setPurchase, setTotal)}
         type="button"
         data-testid={`${(id -1)}-product-plus`}
-        className="product-plus"
       >
         +
       </button>
