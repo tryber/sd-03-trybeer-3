@@ -1,4 +1,4 @@
-.nav{
+.side-menu-container{
   height: var(--header-height);
   position: fixed;
   top: 100px;
