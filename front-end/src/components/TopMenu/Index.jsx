@@ -3,7 +3,7 @@ import cardapio from '../../assets/images/cardapio.svg';
 import SideMenu from '../SideMenu/Index';
 import "./styles.css";
 
-function TopMenu(title) {
+function TopMenu({title}) {
   const [sideMenuState, setSideMenuState] = useState(false);
   return (
     <div>

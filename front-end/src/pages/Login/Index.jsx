@@ -4,7 +4,7 @@ import { getLoginUser } from "../../services/trybeerUserAPI";
 import bigBangBeerLogo from "../../assets/images/bigBangBeerLogo.gif";
 import "./styles.css";
 
-const inputs = (userValue, setUserValue, focus, setFocus, testidClass, type, placeholder, write) => {
+const inputs = ({userValue, setUserValue, focus, setFocus, testidClass, type, placeholder, write}) => {
   return (
     <div className={`${focus ? "focus" : "txtb"}`}>
       <label htmlFor={type}>
@@ -30,8 +30,8 @@ const enterButton = (clickToEnter, isDisabled) => (
     <button
       className={isDisabled() ? "signin-btn-disabled" : "signin-btn"}
       data-testid="signin-btn"
-      onClick={ () => clickToEnter() }
-      disabled={ isDisabled() }
+      onClick={() => clickToEnter()}
+      disabled={isDisabled()}
     >
       ENTRAR
     </button>
@@ -44,7 +44,7 @@ const registerButton = (history) => (
       type="button"
       className="no-account-btn"
       data-testid="no-account-btn"
-      onClick={ () => history.push('/register') }
+      onClick={() => history.push('/register')}
     >
       Ainda não tenho conta
     </button>
@@ -69,7 +69,7 @@ function Login() {
       );
     }
     if (logedUser.data.role === 'administrator') {
-      return history.push('/admin/orders');
+      return history.push('/admin/orders')
     }
     history.push('/products');
   };
