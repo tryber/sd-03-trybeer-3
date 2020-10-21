@@ -47,14 +47,3 @@
 .active::before{
   background-color: white;
 }
-
-@keyframes MoveUpDown {
-  0%{
-    bottom: 200px;
-    opacity: 0;
-  }
-  100% {
-    bottom: 240px;
-    opacity: 1;
-  }
-}
