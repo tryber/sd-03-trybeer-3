@@ -4,7 +4,7 @@ import { getLoginUser } from "../../services/trybeerUserAPI";
 import bigBangBeerLogo from "../../assets/images/bigBangBeerLogo.gif";
 import "./styles.css";
 
-const inputs = ({userValue, setUserValue, focus, setFocus, testidClass, type, placeholder, write}) => {
+const inputs = (userValue, setUserValue, focus, setFocus, testidClass, type, placeholder, write) => {
   return (
     <div className={`${focus ? "focus" : "txtb"}`}>
       <label htmlFor={type}>
