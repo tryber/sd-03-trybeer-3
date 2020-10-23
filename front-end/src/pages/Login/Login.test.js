@@ -6,7 +6,7 @@ import renderWithRouter from '../../renderWithRouter';
 
 describe('Pagina de login usuario', () => {
   test('Testando o componente renderiza corretamente',  () => {
-    const { getByText, getByLabelText, getByTestId, debug } = render(<Register />);    
+    const { getByText, getByLabelText, getByTestId, debug } = renderWithRouter(<Register />);    
      expect(getByText(/entrar/i)).toBeDisabled();
     });
     test('testando o login de usuario comum', () => {
