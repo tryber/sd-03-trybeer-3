@@ -4,7 +4,7 @@ import Register from './Index';
 import renderWithRouter from '../../renderWithRouter';
 
 
-describe('Pagina de controle de pedidos, usuário administrador', () => {
+describe('Pagina de login usuario', () => {
   test('Testando o componente renderiza corretamente',  () => {
     const { getByText, getByLabelText, getByTestId, debug } = render(<Register />);    
      expect(getByText(/entrar/i)).toBeDisabled();
