@@ -9,8 +9,8 @@ describe('Pagina de login usuario', () => {
     expect(getByText(/entrar/i)).toBeDisabled();
   });
   test('testando o login de usuario comum', () => {
-    const { 
-      getByText, getByLabelText, getByTestId, debug 
+    const {
+      getByText, getByLabelText, getByTestId, debug,
     } = renderWithRouter(<Register />);
     const labelLogin = getByText('Login');
     expect(labelLogin).toBeInTheDocument();
