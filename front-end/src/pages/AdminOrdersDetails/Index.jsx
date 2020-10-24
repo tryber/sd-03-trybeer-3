@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { allProducts, allSales, allSalesProducts, deliverySale } from "../../services/trybeerUserAPI";
+import {
+  allProducts, allSales, allSalesProducts, deliverySale,
+} from '../../services/trybeerUserAPI';
 import SideMenuAdmin from '../../components/SideMenuAdmin';
 
 const productsCards = (purchase) => (
@@ -10,10 +12,13 @@ const productsCards = (purchase) => (
       return (
         <div>
           <div className="products-card">
-            <p data-testid={`${index}-product-qtd`}>{e.amount}</p>
-            <p data-testid={`${index}-product-name`}>{e.name}</p>
-            <p data-testid={`${index}-product-total-value`}>R$ {totalProduct}</p>
-            <p data-testid={`${index}-order-unit-price`}>{`(R$ ${parseFloat(e.price).toFixed(2).replace('.', ',')})`}</p>
+            <p data-testid={ `${index}-product-qtd` }>{e.amount}</p>
+            <p data-testid={ `${index}-product-name` }>{e.name}</p>
+            <p data-testid={ `${index}-product-total-value` }>
+              R$
+              {totalProduct}
+            </p>
+            <p data-testid={ `${index}-order-unit-price` }>{`(R$ ${parseFloat(e.price).toFixed(2).replace('.', ',')})`}</p>
           </div>
         </div>
       );
@@ -27,7 +32,7 @@ const deliveredButton = (clickToDeliver, id) => (
       type="button"
       className="mark-as-delivered-btn"
       data-testid="mark-as-delivered-btn"
-      onClick={() => clickToDeliver()}
+      onClick={ () => clickToDeliver() }
     >
       Marcar como entregue
     </button>

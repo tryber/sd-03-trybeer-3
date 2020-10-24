@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import { createSale, saveSaleProducts } from "../../services/trybeerUserAPI";
+import { createSale, saveSaleProducts } from '../../services/trybeerUserAPI';
 import TopMenu from '../../components/TopMenu/Index';
-import "./styles.css";
+import './styles.css';
 
 const addressInput = (address, setAddress) => (
   <div>
@@ -101,7 +101,7 @@ const checkoutButton = (clickToProducts, isDisabled) => (
   <div>
     <button
       type="button"
-      className={isDisabled() ? "disabled-checkout-finish-btn" : "checkout-finish-btn"}
+      className={ isDisabled() ? 'disabled-checkout-finish-btn' : 'checkout-finish-btn' }
       data-testid="checkout-finish-btn"
       onClick={ () => clickToProducts() }
       disabled={ isDisabled() }

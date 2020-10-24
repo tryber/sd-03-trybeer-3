@@ -1,37 +1,35 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { getLoginUser } from "../../services/trybeerUserAPI";
-import bigBangBeerLogo from "../../assets/images/bigBangBeerLogo.gif";
-import "./styles.css";
+import { getLoginUser } from '../../services/trybeerUserAPI';
+import bigBangBeerLogo from '../../assets/images/bigBangBeerLogo.gif';
+import './styles.css';
 
-const inputs = (userValue, setUserValue, focus, setFocus, testidClass, type, placeholder, write) => {
-  return (
-    <div className={`${focus ? "focus" : "txtb"}`}>
-      <label htmlFor={type}>
-        {write}
-        <input
-          type={type}
-          data-testid={testidClass}
-          onChange={(event) => setUserValue(event.target.value)}
-          value={userValue}
-          placeholder={placeholder}
-          className={testidClass}
-          onFocus={() => setFocus(true)}
-          onBlur={() => setFocus(false)}
-        />
-        <span></span>
-      </label>
-    </div>
-  );
-};
+const inputs = (userValue, setUserValue, focus, setFocus, testidClass, type, placeholder, write) => (
+  <div className={ `${focus ? 'focus' : 'txtb'}` }>
+    <label htmlFor={ type }>
+      {write}
+      <input
+        type={ type }
+        data-testid={ testidClass }
+        onChange={ (event) => setUserValue(event.target.value) }
+        value={ userValue }
+        placeholder={ placeholder }
+        className={ testidClass }
+        onFocus={ () => setFocus(true) }
+        onBlur={ () => setFocus(false) }
+      />
+      <span />
+    </label>
+  </div>
+);
 
 const enterButton = (clickToEnter, isDisabled) => (
   <div>
     <button
-      className={isDisabled() ? "signin-btn-disabled" : "signin-btn"}
+      className={ isDisabled() ? 'signin-btn-disabled' : 'signin-btn' }
       data-testid="signin-btn"
-      onClick={() => clickToEnter()}
-      disabled={isDisabled()}
+      onClick={ () => clickToEnter() }
+      disabled={ isDisabled() }
     >
       ENTRAR
     </button>
@@ -44,7 +42,7 @@ const registerButton = (history) => (
       type="button"
       className="no-account-btn"
       data-testid="no-account-btn"
-      onClick={() => history.push('/register')}
+      onClick={ () => history.push('/register') }
     >
       Ainda não tenho conta
     </button>
@@ -64,12 +62,11 @@ function Login() {
     if (logedUser.error) {
       return new Promise((resolve) => resolve(setErrorMessage(logedUser.err.response.data)))
         .then(() => setTimeout(() => {
-          setErrorMessage(false)
-        }, 3000)
-      );
+          setErrorMessage(false);
+        }, 3000));
     }
     if (logedUser.data.role === 'administrator') {
-      return history.push('/admin/orders')
+      return history.push('/admin/orders');
     }
     history.push('/products');
   };
@@ -82,11 +79,11 @@ function Login() {
 
   return (
     <div className="login-form">
-      <img src={bigBangBeerLogo} alt="bing bang beer logo" className="big-bang-beer-logo" />
-      {<h1>Login</h1>}
+      <img src={ bigBangBeerLogo } alt="bing bang beer logo" className="big-bang-beer-logo" />
+      <h1>Login</h1>
       {errorMessage ? <h1 className="errorMessage">{errorMessage}</h1> : null}
-      {inputs(userEmail, setUserEMail, focusEmail, setFocusEmail, "email-input", "email", "email", "Email")}
-      {inputs(userPassword, setUserPassword, focusPassword, setFocusPassword, "password-input", "password", "senha", "Password")}
+      {inputs(userEmail, setUserEMail, focusEmail, setFocusEmail, 'email-input', 'email', 'email', 'Email')}
+      {inputs(userPassword, setUserPassword, focusPassword, setFocusPassword, 'password-input', 'password', 'senha', 'Password')}
       {enterButton(clickToEnter, isDisabled)}
       {registerButton(history)}
     </div>

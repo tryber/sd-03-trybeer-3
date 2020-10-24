@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import { allProducts } from "../../services/trybeerUserAPI";
+import { allProducts } from '../../services/trybeerUserAPI';
 import TopMenu from '../../components/TopMenu/Index';
-import "./styles.css";
+import './styles.css';
 
 const decrement = async (product, purchase, setPurchase, setTotal) => {
   const {
@@ -58,9 +58,14 @@ const renderButtons = (id, e, purchase, setPurchase, setTotal) => {
         -
       </button>
       <span
-        data-testid={`${(id -1)}-spanroduct-qtd`}
+        data-testid={ `${(id - 1)}-spanroduct-qtd` }
         className="product-qtd"
-      > {(product.amount) ? product.amount : 0} </span>
+      >
+        {' '}
+        {(product.amount) ? product.amount : 0}
+        {' '}
+
+      </span>
       <button
         onClick={ () => increment(product, purchase, setPurchase, setTotal) }
         type="button"
@@ -73,28 +78,29 @@ const renderButtons = (id, e, purchase, setPurchase, setTotal) => {
   );
 };
 
-const productsCards = (products, purchase, setPurchase, total, setTotal) => {
-  return (
-    <div className="products-container-card">
-      {products.map((e) => (
-        <div key={e.id - 1}>
-          <div className="products-card">
-            <img data-testid={`${(e.id -1)}-product-img`} src={e.image} width="100px" alt={e.name} />
-            <p data-testid={`${(e.id -1)}-product-name`}>{e.name}</p>
-            <p data-testid={`${(e.id -1)}-product-price`}>R$ {(e.price).toFixed(2).replace('.', ',')}</p>
-            {renderButtons(e.id, e, purchase, setPurchase, total, setTotal)}
-          </div>
+const productsCards = (products, purchase, setPurchase, total, setTotal) => (
+  <div className="products-container-card">
+    {products.map((e) => (
+      <div key={ e.id - 1 }>
+        <div className="products-card">
+          <img data-testid={ `${(e.id - 1)}-product-img` } src={ e.image } width="100px" alt={ e.name } />
+          <p data-testid={ `${(e.id - 1)}-product-name` }>{e.name}</p>
+          <p data-testid={ `${(e.id - 1)}-product-price` }>
+            R$
+            {(e.price).toFixed(2).replace('.', ',')}
+          </p>
+          {renderButtons(e.id, e, purchase, setPurchase, total, setTotal)}
         </div>
-      ))}
-    </div>
-  )
-};
+      </div>
+    ))}
+  </div>
+);
 
 const cartButton = (total, clickToCart, isDisabled) => (
   <div>
     <button
       type="button"
-      className={isDisabled() ? "notAble" : "checkout-bottom-btn"}
+      className={ isDisabled() ? 'notAble' : 'checkout-bottom-btn' }
       data-testid="checkout-bottom-btn"
       onClick={ () => clickToCart() }
       disabled={ isDisabled() }

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { putNameUser } from "../../services/trybeerUserAPI";
+import { putNameUser } from '../../services/trybeerUserAPI';
 import TopMenu from '../../components/TopMenu/Index';
-import "./styles.css";
+import './styles.css';
 
 const dealWithChange = (setName, setChange, value) => {
   setName(value);

@@ -1,6 +1,6 @@
 import React from 'react';
 import { fireEvent } from '@testing-library/react';
-import SideMenu from '../SideMenu/Index';
+import SideMenu from './Index';
 import renderWithRouter from '../../renderWithRouter';
 
 describe('Testa se os links estão redirecionando para as URLS de maneira'
