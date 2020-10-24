@@ -144,7 +144,7 @@ function UserProducts() {
   return (
     <div>
       {TopMenu('TryBeer')}
-      {productsCards(products, purchase, setPurchase, setTotal)}
+      {(products, purchase, setPurchase, setTotal)}
       {cartButton(total, clickToCart, isDisabled)}
     </div>
   );
