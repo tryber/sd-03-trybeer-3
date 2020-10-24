@@ -20,7 +20,6 @@ describe('Pagina de login usuario', () => {
     fireEvent.change(emailInput, { target: { value: 'test@gmail.com' } });
     fireEvent.change(passwrodInput, { target: { value: '12345678' } });
     fireEvent.click(buttonLogin);
-    console.log(history.location.pathname);
     expect(getByText(/entrar/i)).not.toBeDisabled();
     debug();
   });
