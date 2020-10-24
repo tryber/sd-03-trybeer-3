@@ -10,8 +10,7 @@ describe('Pagina de login usuario', () => {
   });
   test('testando o login de usuario comum', () => {
     const {
-      getByText, getByLabelText, getByTestId, debug, history,
-    } = renderWithRouter(<Register />);
+      getByText, getByLabelText, getByTestId, debug } = renderWithRouter(<Register />);
     const labelLogin = getByText('Login');
     expect(labelLogin).toBeInTheDocument();
     const emailInput = getByLabelText('Email');

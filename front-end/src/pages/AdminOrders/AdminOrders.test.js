@@ -8,7 +8,6 @@ Enzyme.configure({ adapter: new Adapter() });
 
 describe('Pagina de checkout de um pedido', () => {
   test('Testando o componente renderiza corretamente', () => {
-    const purchase = localStorage.getItem('inProcessPurchase');
     const { debug } = renderWithRouter(<AdminOrders />);
     debug();
   });
