@@ -1,5 +1,5 @@
 .products-container-card{
-  margin-top: 150px;
+  margin-top: 190px;
   background: white;
   border-radius: 10px;
   width: 100%;
@@ -10,24 +10,6 @@
   margin-top: 20px;
   margin-left: 100px;
   margin-right: 40px;
-}
-
-.product-plus{
-	height: 25px;
-	border-radius: 25px;
-	outline: none;
-	border: none;
-  background: green;
-  cursor: pointer;
-}
-
-.product-minus{
-	height: 25px;
-	border-radius: 25px;
-	outline: none;
-	border: none;
-  background: red;
-  cursor: pointer;
 }
 
 .checkout-bottom-btn{
@@ -45,7 +27,6 @@
 	text-transform: uppercase;
 	margin: 1rem 0;
 	cursor: pointer;
-  transition: .5s;
 }
 
 .checkout-bottom-btn:hover{
