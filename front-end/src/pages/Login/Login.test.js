@@ -23,4 +23,19 @@ describe('Pagina de login usuario', () => {
     expect(getByText(/entrar/i)).not.toBeDisabled();
     debug();
   });
+  test('testando o login de Admim', () => {
+    const {
+      getByText, getByLabelText, getByTestId, debug,
+    } = renderWithRouter(<Register />);
+    const labelLogin = getByText('Login');
+    expect(labelLogin).toBeInTheDocument();
+    const emailInput = getByLabelText('Email');
+    const passwrodInput = getByLabelText('Password');
+    const buttonLogin = getByTestId('signin-btn');
+    fireEvent.change(emailInput, { target: { value: 'tryber@tryber@trybe.com.br' } });
+    fireEvent.change(passwrodInput, { target: { value: '123456' } });
+    fireEvent.click(buttonLogin);
+    expect(getByText(/entrar/i)).not.toBeDisabled();
+    debug();
+  });
 });
