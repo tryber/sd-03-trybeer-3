@@ -1,0 +1,30 @@
+ <div class="login-form">
+ <img src="bigBangBeerLogo.gif" alt="bing bang beer logo" class="big-bang-beer-logo">
+ <h1>Login</h1>
+ <div class="txtb">
+ <label for="email">
+ Email
+ <input type="email" data-testid="email-input" placeholder="email" class="email-input" value="">
+ <span>
+ </span>
+ </label>
+ </div>
+ <div class="txtb">
+ <label for="password">
+ Password
+ <input type="password" data-testid="password-input" placeholder="senha" class="password-input" value="">
+ <span>
+ </span>
+ </label>
+ </div>
+ <div>
+ <button class="signin-btn-disabled" data-testid="signin-btn" disabled="">
+ ENTRAR
+ </button>
+ </div>
+ <div>
+ <button type="button" class="no-account-btn" data-testid="no-account-btn">
+ Ainda não tenho conta
+ </button>
+ </div>
+ </div>

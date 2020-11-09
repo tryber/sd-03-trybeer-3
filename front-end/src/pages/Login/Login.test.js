@@ -1,17 +1,17 @@
 import React from 'react';
 import { fireEvent } from '@testing-library/react';
-import Register from './Index';
+import Login from './Index';
 import renderWithRouter from '../../renderWithRouter';
 
 describe('Pagina de login usuario', () => {
   test('Testando o componente renderiza corretamente', () => {
-    const { getByText } = renderWithRouter(<Register />);
+    const { getByText } = renderWithRouter(<Login />);
     expect(getByText(/entrar/i)).toBeDisabled();
   });
   test('testando o login de usuario comum', () => {
     const {
       getByText, getByLabelText, getByTestId, debug,
-    } = renderWithRouter(<Register />);
+    } = renderWithRouter(<Login />);
     const labelLogin = getByText('Login');
     expect(labelLogin).toBeInTheDocument();
     const emailInput = getByLabelText('Email');
@@ -26,7 +26,7 @@ describe('Pagina de login usuario', () => {
   test('testando o login de Admim', () => {
     const {
       getByText, getByLabelText, getByTestId, debug,
-    } = renderWithRouter(<Register />);
+    } = renderWithRouter(<Login />);
     const labelLogin = getByText('Login');
     expect(labelLogin).toBeInTheDocument();
     const emailInput = getByLabelText('Email');
