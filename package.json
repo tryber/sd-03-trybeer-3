@@ -24,6 +24,9 @@
   "homepage": "https://github.com/betrybe/sd-0x-trybeer#readme",
   "dependencies": {
     "@mysql/xdevapi": "^8.0.20",
+    "@sheerun/mutationobserver-shim": "^0.3.3",
+    "@testing-library/react": "^10.0.5",
+    "jest-environment-jsdom-sixteen": "^1.0.3",
     "mysql2": "^2.1.0",
     "sequelize": "^6.3.4",
     "supertest": "^5.0.0"

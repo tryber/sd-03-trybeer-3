@@ -14,6 +14,7 @@ const inputs = (userValue, setUserValue, focus, setFocus, testidClass, type, pla
         onChange={ (event) => setUserValue(event.target.value) }
         value={ userValue }
         placeholder={ placeholder }
+        name={type}
         className={ testidClass }
         onFocus={ () => setFocus(true) }
         onBlur={ () => setFocus(false) }
@@ -60,7 +61,8 @@ function Login() {
   const clickToEnter = async () => {
     const logedUser = await getLoginUser(userEmail, userPassword);
     if (logedUser.error) {
-      return new Promise((resolve) => resolve(setErrorMessage(logedUser.err.response.data)))
+      console.log(logedUser.err.response.data)
+      return new Promise((resolve) => resolve(setErrorMessage(logedUser.err.response.data.message)))
         .then(() => setTimeout(() => {
           setErrorMessage(false);
         }, 3000));
@@ -83,7 +85,7 @@ function Login() {
       <h1>Login</h1>
       {errorMessage ? <h1 className="errorMessage">{errorMessage}</h1> : null}
       {inputs(userEmail, setUserEMail, focusEmail, setFocusEmail, 'email-input', 'email', 'email', 'Email')}
-      {inputs(userPassword, setUserPassword, focusPassword, setFocusPassword, 'password-input', 'password', 'senha', 'Password')}
+      {inputs(userPassword, setUserPassword, focusPassword, setFocusPassword, 'password-input', 'password', 'password', 'Password')}
       {enterButton(clickToEnter, isDisabled)}
       {registerButton(history)}
     </div>
